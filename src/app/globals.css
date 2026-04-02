@@ -1,18 +1,25 @@
 @import "bootstrap-icons/font/bootstrap-icons.css";
 @import "remixicon/fonts/remixicon.css";
 
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import "tailwindcss";
 
 /* Variáveis */
 :root {
   /* Cores */
-  --prim: #0000;
-  --prim-light: #5555;
-  --second: #818181;
-  --btn-color: #26BAFE;
+  --prim: #0f0a1b; /* primary color (dark blue/gray) */
+  --prim-light: #4b357c; /* semi-transparent primary */
+  --second: #6e11b0; /* for */
+  --btn-color: #6e11b0;
   --gradient: linear-gradient(to bottom, #26BAFE 0%, #A8CAFF 100%);
+}
+
+/* Fontes */
+.font-anton{
+  font-family: var(--font-anton_sc);
+}
+
+.font-dyslexic{
+  font-family: var(--font-open-dyslexic);
 }
 
 /* Base */
@@ -28,7 +35,7 @@ html, body{
 }
 
 body {
-  background-color: #fffaf3; 
+  background-color: #0f0a1b; 
   font-family: var(--font-open-dyslexic);
-  color: var(--primm);
+  color: var(--second);
 }
