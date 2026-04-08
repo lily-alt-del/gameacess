@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Anton_SC } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import Footer from '@/Components/Footer';
 import NavBar from "@/Components/NavBar/NavBar";
 
 // Configuração das fontes online
@@ -34,13 +35,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
+ return (
     <html lang="en">
       <body
-        className={`${antonSC.variable} ${openDyslexic.variable}`}
+        className={`${antonSC.variable} ${openDyslexic.variable} flex flex-col min-h-screen bg-[#0f0a1b]`}
       >
         <NavBar />
-        {children}
+        <main className="grow">
+          {children}
+        </main>
+        
+        <Footer />
       </body>
     </html>
   );
