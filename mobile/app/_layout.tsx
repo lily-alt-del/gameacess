@@ -1,24 +1,45 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { SafeAreaView, StyleSheet, StatusBar } from 'react-native';
+import Header from '../components/Header';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+// 1. IMPORTAÇÕES DA FONTE
+import { useFonts, Anton_400Regular } from '@expo-google-fonts/anton';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+// Impede que a tela de carregamento suma antes da fonte estar pronta
+SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+export default function Layout() {
+  // 2. CARREGANDO A FONTE (E apelidando ela de "Anton")
+  const [fontsLoaded, error] = useFonts({
+    Anton: Anton_400Regular, 
+  });
+
+  // 3. EFEITO PARA ESCONDER A TELA DE CARREGAMENTO
+  useEffect(() => {
+    if (fontsLoaded || error) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, error]);
+
+  // Se a fonte ainda não carregou, não desenha nada na tela
+  if (!fontsLoaded && !error) {
+    return null; 
+  }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#0f0a1b" />
+      <Header />
+      <Stack screenOptions={{ headerShown: false }} />
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#0f0a1b',
+  }
+});
