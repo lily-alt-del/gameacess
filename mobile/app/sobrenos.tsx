@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import Footer from '../components/Footer';
 
 // No Mobile, as imagens precisam do 'require' se estiverem na pasta assets local
 const equipe = [
@@ -15,61 +16,73 @@ export default function SobreNos() {
   return (
     <View style={styles.safeContainer}>
       
-      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-        
-        {/* SEÇÃO 1: JOGAR É PARA TODOS */}
-        <View style={styles.section}>
-          {/* Retângulo de Vídeo/Imagem */}
-          <View style={styles.videoPlaceholder}>
-            <Text style={{ color: '#555' }}>Placeholder Vídeo / Imagem</Text>
-          </View>
+      {/* 1. APENAS UM SCROLLVIEW ABRAÇANDO TUDO */}
+      <ScrollView 
+        style={styles.container} 
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
+      
+        {/* 2. UMA VIEW INTERNA PARA O CONTEÚDO (Para dar o padding) */}
+        <View style={styles.content}>
+          
+          {/* SEÇÃO 1: JOGAR É PARA TODOS */}
+          <View style={styles.section}>
+            {/* Retângulo de Vídeo/Imagem */}
+            <View style={styles.videoPlaceholder}>
+              <Text style={{ color: '#555' }}>Placeholder Vídeo / Imagem</Text>
+            </View>
 
-          <Text style={styles.mainTitle}>
-            JOGAR É PARA TODOS.{"\n"}
-            <Text style={{ color: '#A855F7' }}>SEM EXCEÇÕES</Text>
-          </Text>
+            <Text style={styles.mainTitle}>
+              JOGAR É PARA TODOS.{"\n"}
+              <Text style={{ color: '#A855F7' }}>SEM EXCEÇÕES</Text>
+            </Text>
 
-          <View style={styles.textBlock}>
-            <Text style={styles.paragraph}>
-              Na Access Game, acreditamos que a diversidade de jogadores é o que torna a comunidade incrível, mas sabemos que nem todo jogo nasce pronto para todos os controles. Por isso, nosso foco é quebrar barreiras.
-            </Text>
-            <Text style={styles.paragraph}>
-              Desenvolvemos mods de acessibilidade pensados sob medida para quem precisa de adaptações motoras, visuais ou cognitivas.
-            </Text>
-            
-            {/* Missão com a bordinha roxa lateral */}
-            <View style={styles.missionCard}>
-              <Text style={styles.missionText}>
-                Nossa missão é simples: se você quer jogar, nós damos um jeito.
+            <View style={styles.textBlock}>
+              <Text style={styles.paragraph}>
+                Na Access Game, acreditamos que a diversidade de jogadores é o que torna a comunidade incrível, mas sabemos que nem todo jogo nasce pronto para todos os controles. Por isso, nosso foco é quebrar barreiras.
               </Text>
+              <Text style={styles.paragraph}>
+                Desenvolvemos mods de acessibilidade pensados sob medida para quem precisa de adaptações motoras, visuais ou cognitivas.
+              </Text>
+              
+              {/* Missão com a bordinha roxa lateral */}
+              <View style={styles.missionCard}>
+                <Text style={styles.missionText}>
+                  Nossa missão é simples: se você quer jogar, nós damos um jeito.
+                </Text>
+              </View>
             </View>
           </View>
+
+          {/* SEÇÃO 2: INTEGRANTES */}
+          <View style={styles.teamSection}>
+            <View style={styles.teamHeader}>
+              <Text style={styles.teamTitle}>CONHEÇA NOSSOS INTEGRANTES</Text>
+              <View style={styles.divider} />
+            </View>
+
+            {/* CONTAINER EM FORMATO DE GRADE */}
+            <View style={styles.teamGrid}>
+              {equipe.map((membro) => (
+                <View key={membro.id} style={styles.memberCardGrid}>
+                  <Image source={membro.imagem} style={styles.avatarGrid} />
+                  <View style={styles.memberInfoGrid}>
+                    <Text style={styles.memberNameGrid}>{membro.nome}</Text>
+                    <Text style={styles.memberDescGrid}>{membro.descricao}</Text>
+                  </View>
+                </View>
+              ))}
+            </View>
+          </View>
+
+          {/* Espaço extra no fim do conteúdo antes do Footer */}
+          <View style={{ height: 40 }} />
+        
         </View>
 
-        {/* SEÇÃO 2: INTEGRANTES */}
-        <View style={styles.teamSection}>
-          <View style={styles.teamHeader}>
-            <Text style={styles.teamTitle}>CONHEÇA NOSSOS INTEGRANTES</Text>
-            <View style={styles.divider} />
-          </View>
+        {/* 3. O FOOTER AQUI NO FINALZINHO DO SCROLL */}
+        <Footer />
 
-          {/* NOVO CONTAINER EM FORMATO DE GRADE */}
-          <View style={styles.teamGrid}>
-            {equipe.map((membro) => (
-              <View key={membro.id} style={styles.memberCardGrid}>
-                <Image source={membro.imagem} style={styles.avatarGrid} />
-                <View style={styles.memberInfoGrid}>
-                  <Text style={styles.memberNameGrid}>{membro.nome}</Text>
-                  <Text style={styles.memberDescGrid}>{membro.descricao}</Text>
-                </View>
-              </View>
-            ))}
-          </View>
-
-          </View>
-
-        {/* Espaço extra no fim para não colar na borda do celular */}
-        <View style={{ height: 40 }} />
       </ScrollView>
     </View>
   );
@@ -87,11 +100,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 20,
   },
-
   section: {
     marginBottom: 40,
   },
-  
   videoPlaceholder: {
     width: '100%',
     height: 220,
@@ -151,14 +162,14 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#27272a',
   },
- teamGrid: {
+  teamGrid: {
     flexDirection: 'row',
-    flexWrap: 'wrap', // Faz os itens pularem para a próxima linha
-    justifyContent: 'space-between', // Espalha os itens nos cantos
+    flexWrap: 'wrap', 
+    justifyContent: 'space-between', 
   },
   memberCardGrid: {
-    width: '48%', // Cada card ocupa quase metade da tela (cabe 2 por linha)
-    alignItems: 'center', // Centraliza a foto e os textos
+    width: '48%', 
+    alignItems: 'center', 
     marginBottom: 35,
   },
   avatarGrid: {
@@ -166,7 +177,7 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 45,
     backgroundColor: '#27272a',
-    marginBottom: 12, // Dá um espaço entre a foto e o nome
+    marginBottom: 12, 
   },
   memberInfoGrid: {
     alignItems: 'center',
@@ -178,7 +189,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   memberDescGrid: {
-    color: '#a1a1aa', // Cinza um pouco mais claro para ler melhor
+    color: '#a1a1aa', 
     fontSize: 13,
     fontStyle: 'italic',
     textAlign: 'center',
