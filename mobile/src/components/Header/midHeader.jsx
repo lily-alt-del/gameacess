@@ -6,7 +6,7 @@ export default function Header({ pfp }) {
   return (
     <View style={styles.content}>
       <View style={styles.logo}>
-        <Image source={pfp} style={styles.pfp} />
+        <Image source={pfp} style={styles.icon} />
         <Text style={styles.name}>AccessGames</Text>
       </View>
       <FontAwesome name="bars" size={25} color="white" />
@@ -18,10 +18,10 @@ const styles = StyleSheet.create({
   content: {
     flexDirection: "row",
     alignItems: "center",
-    paddingBlock: 30,
+    paddingBlock: 20,
     paddingInline: 40,
     justifyContent: "space-between",
-    borderBottomColor: "white",
+    borderBottomColor: "#6e11b0",
     borderBottomWidth: 1,
   },
   logo: {
@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 10,
   },
-  pfp: {
+  icon: {
     width: 45,
     height: 45,
     borderRadius: 23,
-    backgroundColor: "white",
+    backgroundColor: "#6e11b0",
   },
   name: {
     color: "white",
