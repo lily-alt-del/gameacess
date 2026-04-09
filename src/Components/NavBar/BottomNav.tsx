@@ -6,7 +6,7 @@ export default function BottomNav() {
     return(
         <>
             <Link href='/login' style={styles.login}>\Login</Link>
-            <Link href='/cadastro' style={styles.cadastro}>Cadastro</Link>
+            <Link href='/register' style={styles.cadastro}>Cadastro</Link>
         </>
     )
 }
