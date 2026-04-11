@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Anton_SC } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import Footer from '@/Components/Footer';
+import Footer from "@/Components/Footer"
 import NavBar from "@/Components/NavBar/NavBar";
 
 // Configuração das fontes online

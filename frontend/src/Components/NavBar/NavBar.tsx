@@ -4,8 +4,8 @@ import BottomNav from "./BottomNav";
 export default function NavBar() {
     return(
         <>
-            <header className="w-full">
-                <div className="lg:block">
+            <header className="w-full ">
+                <div className="lg:block ">
                     <MiddleNav />
                 </div>
                 <BottomNav />
