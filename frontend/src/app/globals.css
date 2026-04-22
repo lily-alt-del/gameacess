@@ -1,0 +1,47 @@
+@import "bootstrap-icons/font/bootstrap-icons.css";
+@import "remixicon/fonts/remixicon.css";
+
+@import "tailwindcss";
+
+/* Variáveis */
+:root {
+  /* Cores */
+  --prim: #0f0a1b; /* primary color (dark blue/gray) */
+  --prim-light: #4b357c; /* semi-transparent primary */
+  --second: #6e11b0; /* for */
+  --btn-color: #6e11b0;
+  --gradient: linear-gradient(to bottom, #26BAFE 0%, #A8CAFF 100%);
+}
+
+/* Fontes */
+.font-anton{
+  font-family: var(--font-anton_sc);
+}
+
+.font-dyslexic{
+  font-family: var(--font-open-dyslexic);
+}
+
+/* Base */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body{
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #0f0a1b; 
+  font-family: var(--font-open-dyslexic);
+  color: var(--second);
+}
+
+.fundo{
+  background-image: url('/fundo.png');
+  background-size: cover;
+  background-position: center;
+}
