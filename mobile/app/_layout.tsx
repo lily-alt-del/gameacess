@@ -1,5 +1,6 @@
 import { Stack } from 'expo-router';
 import { SafeAreaView, StyleSheet, StatusBar } from 'react-native';
+import Head from 'expo-router/head';
 import Header from '../components/Header';
 
 // 1. IMPORTAÇÕES DA FONTE
