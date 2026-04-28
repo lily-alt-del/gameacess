@@ -42,9 +42,11 @@ export default function Header() {
           </Link>
           
           {/* Perfil */}
+          <Link href='/login' asChild>
           <TouchableOpacity style={styles.iconButton}>
             <Ionicons name="person-outline" size={26} color="#fff" />
           </TouchableOpacity>
+          </Link>
           
         </View>
 
