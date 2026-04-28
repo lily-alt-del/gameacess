@@ -42,5 +42,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0f0a1b',
+    maxWidth: '100%',
+    overflow: 'hidden',
   }
 });
