@@ -29,34 +29,7 @@ export default function MiddleNav() {
       {/* --- INÍCIO DO AGRUPAMENTO DA DIREITA --- */}
       <div className="flex items-center gap-10"> 
         
-        {/* 2. MENU DROPDOWN (Agora dentro do grupo da direita) */}
-        <div className="relative group">
-          <button className="text-white hover:text-[#a855f7] transition-colors flex items-center gap-2 py-2 font-sans text-lg">
-            Produtos
-            <i className="bi bi-chevron-down text-sm transition-transform duration-300 group-hover:rotate-180"></i>
-          </button>
-
-          <div className="absolute left-0 top-full mt-1 w-56 bg-[#0f0a1b] border border-zinc-800 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden">
-            <div className="flex flex-col">
-              <Link href="/produtos/camisetas" className="text-zinc-300 hover:text-white hover:bg-zinc-800/50 px-5 py-3 transition-colors border-b border-zinc-800/50 flex items-center gap-3">
-                <i className="bi bi-person-bounding-box text-purple-500"></i>
-                Camisetas
-              </Link>
-              <Link href="/produtos/moletons" className="text-zinc-300 hover:text-white hover:bg-zinc-800/50 px-5 py-3 transition-colors border-b border-zinc-800/50 flex items-center gap-3">
-                <i className="bi bi-layers text-purple-500"></i>
-                Moletons
-              </Link>
-              <Link href="/produtos/perifericos" className="text-zinc-300 hover:text-white hover:bg-zinc-800/50 px-5 py-3 transition-colors border-b border-zinc-800/50 flex items-center gap-3">
-                <i className="bi bi-mouse text-purple-500"></i>
-                Periféricos
-              </Link>
-              <Link href="/produtos/colecionaveis" className="text-zinc-300 hover:text-white hover:bg-zinc-800/50 px-5 py-3 transition-colors flex items-center gap-3">
-                <i className="bi bi-box-seam text-purple-500"></i>
-                Colecionáveis
-              </Link>
-            </div>
-          </div>
-        </div>
+        
 
         {/* 3. CARRINHO E PERFIL */}
         <div className='flex items-center gap-5'>

@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <footer 
-      className="w-full bg-[#0a0a0a] text-white pb-8 border-t border-zinc-800 font-sans mt-auto"
+      className="w-full bg-[#0a0a0a] text-white pb-8 border-t border-zinc-800 mt-auto"
       style={{ paddingInline: '15%', paddingTop: '100px' }}
     >
       <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
