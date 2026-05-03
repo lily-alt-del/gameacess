@@ -4,6 +4,9 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Footer from '@/Components/Footer';
 import NavBar from "@/Components/NavBar/NavBar";
+import { usePathname } from "next/dist/client/components/navigation";
+import LayoutClient from "@/Components/LayoutClient";
+import { UserProvider } from "@/context/UserContext";
 
 // Configuração das fontes online
 const antonSC = Anton_SC({
@@ -32,20 +35,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
+
  return (
     <html lang="en">
       <body
         className={`${antonSC.variable} ${openDyslexic.variable} flex flex-col min-h-screen bg-[#0f0a1b]`}
       >
-        <NavBar />
-        <main className="grow">
-          {children}
-        </main>
-        
-        <Footer />
+        <UserProvider>
+          <LayoutClient>
+            {children}
+          </LayoutClient>
+        </UserProvider>
       </body>
     </html>
   );

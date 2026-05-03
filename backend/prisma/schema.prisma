@@ -12,6 +12,7 @@ model User {
   name      String
   email     String   @unique
   password  String
+  avatar    String?  // 👈 NOVO CAMPO
   createdAt DateTime @default(now())
 
   cart   Cart?
@@ -51,7 +52,7 @@ model Order {
   total     Float
   createdAt DateTime @default(now())
   status    OrderStatus @default(PENDING)
-  
+
   user  User        @relation(fields: [userId], references: [id])
   items OrderItem[]
 }

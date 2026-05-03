@@ -14,6 +14,7 @@ export class UsersController {
 
   @Post('login')
   login(@Body() body: LoginUserDto) {
+    console.log('LOGIN FOI CHAMADO');
     return this.service.login(body);
   }
 

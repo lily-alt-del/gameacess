@@ -29,6 +29,7 @@ export class UsersService {
         name: data.name,
         email: data.email,
         password: hashedPassword,
+        avatar: data.avatar || null, // 👈 NOVO
       },
     });
 
@@ -53,9 +54,16 @@ export class UsersService {
       throw new UnauthorizedException('Credenciais inválidas');
     }
 
-    // 🔥 NOVO: garantir carrinho
+    // 🔥 garantir carrinho
     let cart = await this.prisma.cart.findUnique({
       where: { userId: user.id },
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
+        },
+      },
     });
 
     if (!cart) {
@@ -71,13 +79,13 @@ export class UsersService {
       });
     }
 
-    // remove senha
+    // ❌ remove senha
     const { password, ...userWithoutPassword } = user;
 
     return {
       message: 'Login realizado com sucesso',
-      user: userWithoutPassword,
-      cart, // 👈 já retorna o carrinho
+      user: userWithoutPassword, // 👈 agora inclui avatar automaticamente
+      cart,
     };
   }
 
