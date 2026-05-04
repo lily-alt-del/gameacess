@@ -21,3 +21,16 @@ export async function loginUser(data: {
     body: JSON.stringify(data),
   });
 }
+
+export async function updateUser(
+  id: number,
+  data: {
+    name?: string;
+    avatar?: string;
+  }
+) {
+  return apiFetch(`/users/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+}

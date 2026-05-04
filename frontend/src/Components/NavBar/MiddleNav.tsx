@@ -88,9 +88,11 @@ export default function MiddleNav() {
               {/* Dropdown */}
               {open && (
                 <div className="absolute right-0 mt-2 w-56 rounded-xl bg-zinc-900 border border-white/10 shadow-lg p-4 z-50">
-                  
-                  <p className="text-white font-semibold">{user.name}</p>
-                  <p className="text-sm text-purple-300 mb-3">{user.email}</p>
+                  <Link href="/profile" >
+                    <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/10 transition">
+                      Perfil
+                    </button>
+                  </Link>
 
                   <button
                     onClick={logout}
