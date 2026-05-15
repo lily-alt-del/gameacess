@@ -97,14 +97,20 @@ export class UsersService {
     return users.map(({ password, ...rest }) => rest);
   }
 
+  async findByEmail(email: string) {
+    return this.prisma.user.findUnique({
+      where: { email },
+    });
+  }
+
   async update(id: number, data: any) {
-  const user = await this.prisma.user.update({
-    where: { id },
-    data,
-  });
+    const user = await this.prisma.user.update({
+      where: { id },
+      data,
+    });
 
-  const { password, ...userWithoutPassword } = user;
+    const { password, ...userWithoutPassword } = user;
 
-  return userWithoutPassword;
-}
+    return userWithoutPassword;
+  }
 }

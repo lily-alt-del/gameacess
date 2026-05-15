@@ -22,15 +22,9 @@ export async function loginUser(data: {
   });
 }
 
-export async function updateUser(
-  id: number,
-  data: {
-    name?: string;
-    avatar?: string;
-  }
-) {
+export async function updateUser(id: number, body: any) {
   return apiFetch(`/users/${id}`, {
-    method: "PUT",
-    body: JSON.stringify(data),
+    method: 'PUT',
+    body: JSON.stringify(body),
   });
 }

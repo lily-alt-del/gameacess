@@ -7,7 +7,7 @@ import Footer from "@/Components/Footer";
 export default function LayoutClient({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  const hideNavbar = pathname === "/login" || pathname === "/register" || pathname === "/profile";
+  const hideNavbar = pathname === "/login" || pathname === "/register" || pathname === "/profile" || pathname === "/profile/edit";
 
   return (
     <>
