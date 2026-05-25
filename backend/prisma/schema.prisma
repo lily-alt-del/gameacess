@@ -29,22 +29,28 @@ model Cart {
 }
 
 model Product {
-  id    Int    @id @default(autoincrement())
-  name  String
-  price Float
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String  @default("Sem descrição")
+  price       Float
+  stock       Int
 
-  items      CartItem[]
-  orderItems OrderItem[]
+  createdAt   DateTime @default(now())
+
+  cardItems   CartItem[]
+  orderItems  OrderItem[]
 }
 
 model CartItem {
   id        Int @id @default(autoincrement())
-  cartId    Int
-  productId Int
-  quantity  Int
 
+  cartId    Int
   cart    Cart    @relation(fields: [cartId], references: [id])
+
+  productId Int
   product Product @relation(fields: [productId], references: [id])
+
+  quantity  Int
 }
 
 model Order {
