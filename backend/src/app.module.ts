@@ -8,9 +8,10 @@ import { ProductsModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
 import { MockUserMiddleware } from './common/middleware/mock-user.middleware';
 import { AuthModule } from './auth/auth.module';
+import { ModModule } from './mod/mod.module';
 
 @Module({
-  imports: [PrismaModule, UsersModule, CartModule, ProductsModule, OrderModule, AuthModule],
+  imports: [PrismaModule, UsersModule, CartModule, ProductsModule, OrderModule, AuthModule, ModModule],
   controllers: [AppController],
   providers: [AppService],
 })

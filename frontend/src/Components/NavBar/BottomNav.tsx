@@ -23,21 +23,13 @@ export default function BottomNav() {
 
           <div className="absolute left-0 top-full mt-1 w-56 bg-[#0f0a1b] border border-zinc-800 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden">
             <div className="flex flex-col">
-              <Link href="/produtos/camisetas" className="text-zinc-300 hover:text-white hover:bg-zinc-800/50 px-5 py-3 transition-colors border-b border-zinc-800/50 flex items-center gap-3">
+              <Link href="/produtos/camisetas" className="text-zinc-300 hover:text-purple-500 hover:bg-zinc-800/50 px-5 py-3 transition-colors border-b border-zinc-800/50 flex items-center gap-3">
               <IoShirt />
-                Camisetas
+                Roupas
               </Link>
-              <Link href="/produtos/moletons" className="text-zinc-300 hover:text-white hover:bg-zinc-800/50 px-5 py-3 transition-colors border-b border-zinc-800/50 flex items-center gap-3">
-                <GiPirateCoat />
-                Moletons
-              </Link>
-              <Link href="/produtos/perifericos" className="text-zinc-300 hover:text-white hover:bg-zinc-800/50 px-5 py-3 transition-colors border-b border-zinc-800/50 flex items-center gap-3">
+              <Link href="/produtos/perifericos" className="text-zinc-300 hover:text-purple-500 hover:bg-zinc-800/50 px-5 py-3 transition-colors border-b border-zinc-800/50 flex items-center gap-3">
                 <i className="bi bi-mouse2-fill"></i>
                 Periféricos
-              </Link>
-              <Link href="/produtos/colecionaveis" className="text-zinc-300 hover:text-white hover:bg-zinc-800/50 px-5 py-3 transition-colors flex items-center gap-3">
-                <i className="bi bi-box2-fill"></i>
-                Colecionáveis
               </Link>
             </div>
           </div>

@@ -49,21 +49,21 @@ export default function MiddleNav() {
         <div className='flex items-center gap-5'>
           
           {/* Botão de carrinho */}
-          <Link href="/carrinho" className='text-white flex justify-center rounded-xl w-10 h-10 items-center hover:bg-(--prim-light)'>
-            <i className="bi bi-cart2 text-2xl"></i>
+          <Link href="/carrinho" className='text-sm rounded border border-[var-(--primary)] hover:bg-white hover:text-black transition hover:border-white ' style={{ paddingInline: '10px', paddingBlock: '3px' }}>
+            <i className="bi bi-cart2 text-xl"></i>
           </Link>
 
           {/* 👇 PERFIL */}
           {!user ? (
             <div className="flex items-center gap-3">
               <Link href="/login">
-                <button className='text-sm bg-white text-[#0f0a1b] rounded hover:bg-[#0f0a1b] hover:text-purple-500 hover:border' style={{ padding: '5px 15px' }}>
+                <button className='text-sm border border-purple-500 rounded hover:bg-white hover:text-black transition hover:border-white' style={{ padding: '5px 15px' }}>
                   Login
                 </button>
               </Link>
 
               <Link href="/register">
-                <button className='text-sm border border-purple-500 rounded hover:bg-white hover:text-black transition' style={{ padding: '5px 15px' }}>
+                <button className='text-sm border border-purple-500 rounded hover:bg-white hover:text-black transition hover:border-white' style={{ padding: '5px 15px' }}>
                   Cadastro
                 </button>
               </Link>
