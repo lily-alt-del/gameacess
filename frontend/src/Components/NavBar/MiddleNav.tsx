@@ -36,6 +36,7 @@ export default function MiddleNav() {
           alt='Access Game Logo'
           width={100}
           height={100}
+          priority
         />
         <span className='gradient-text font-anton hidden text-4xl text-purple-200 font-bold sm:inline'>
           AccessGame

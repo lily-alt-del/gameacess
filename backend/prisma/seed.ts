@@ -25,7 +25,7 @@ async function main() {
           'Ajustes de controles e tempo de reação para facilitar a jogabilidade.',
         price: 5.9,
         imageUrl:
-          'https://play-lh.googleusercontent.com/1zTWXjwCUeRmOVeqNnmrb-oR-KELGQMOLjrcZ2cXkQby8pQRpD5Wrng7Z8JPuWrsqQ=w240-h480-rw',
+          'https://i.pinimg.com/736x/71/74/1f/71741f0e91ba7353dc20be8555183f84.jpg',
         category: ModCategory.DESCUBRA,
       },
 
@@ -35,7 +35,7 @@ async function main() {
           'Opções de sensibilidade e mira assistida para melhor controle.',
         price: 16.99,
         imageUrl:
-          'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1229490/capsule_616x353.jpg?t=1774188523',
+          'https://mfiles.alphacoders.com/101/thumb-1920-1011359.jpeg',
         category: ModCategory.DESCUBRA,
       },
 

@@ -19,7 +19,7 @@ export class CartService {
         include: {
           items: {
             include: {
-              product: true,
+              mod: true,
             },
           },
         },
@@ -34,7 +34,7 @@ export class CartService {
         include: {
           items: {
             include: {
-              product: true,
+              mod: true,
             },
           },
         },
@@ -46,7 +46,7 @@ export class CartService {
 
   async addItem(
     userId: number,
-    productId: number,
+    modId: number,
   ) {
     const cart = await this.getCart(userId);
 
@@ -54,7 +54,7 @@ export class CartService {
       await this.prisma.cartItem.findFirst({
         where: {
           cartId: cart.id,
-          productId,
+          modId,
         },
       });
 
@@ -74,7 +74,7 @@ export class CartService {
     return this.prisma.cartItem.create({
       data: {
         cartId: cart.id,
-        productId,
+        modId,
         quantity: 1,
       },
     });

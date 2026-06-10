@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface Mod {
   id: number;
@@ -38,14 +39,14 @@ export default function Home() {
 
   const bannerData = {
     title: "Bayonetta",
-    img: "https://www.nintendo.com/eu/media/images/10_share_images/games_15/wiiu_14/SI_WiiU_Bayonetta1.jpg",
+    img: "https://www.switchscores.com/img/ps-header/hdr-449-bayonetta-2-260416.jpg",
   };
 
   return (
     <div className="min-h-screen flex flex-col">
       <div>
         
-        <div className="w-full relative bg-zinc-900 overflow-hidden mb-12" style={{ height: "600px" }}>
+        <div className="w-full relative bg-zinc-900 overflow-hidden mb-12" style={{ height: "800px" }}>
           <img src={bannerData.img} alt={bannerData.title} className="w-full h-full object-cover brightness-[0.45]" />
         </div>
 
@@ -56,7 +57,10 @@ export default function Home() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {descubraMods.map((mod) => (
-                <div key={mod.id} className="group cursor-pointer flex flex-col gap-3">
+                <Link
+                  key={mod.id}
+                  href={`/mods/${mod.id}`}
+                  className="group cursor-pointer flex flex-col gap-3">
                   <div className="aspect-[3/4] bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden group-hover:border-purple-500 group-hover:border-4 transition duration-300">
                     <img src={mod.imageUrl} alt={mod.title} className="w-full h-full object-cover" />
                   </div>
@@ -66,7 +70,7 @@ export default function Home() {
 
                     <p className="text-xs text-green-400 font-bold mt-0.5">R$ {mod.price.toFixed(2)}</p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </section>
@@ -78,7 +82,10 @@ export default function Home() {
             {/* GRID SUPERIOR */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-8" style={{ paddingBottom: '20px' }}>
               {descontosPrincipais.map((mod) => (
-                <div key={mod.id} className="group cursor-pointer flex flex-col gap-2">
+                <Link
+                  key={mod.id}
+                  href={`/mods/${mod.id}`}
+                  className="group cursor-pointer flex flex-col gap-2">
                   <div className="aspect-[3/4] bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden group-hover:border-purple-500 group-hover:border-2 transition duration-300">
                     <img src={mod.imageUrl} alt={mod.title} className="w-full h-full object-cover" />
                   </div>
@@ -87,14 +94,17 @@ export default function Home() {
 
                   <p className="text-sm text-green-400 font-bold mt-0.5">R$ {mod.price.toFixed(2)}</p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
 
             {/* GRID INFERIOR */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {descontosGrandes.map((mod) => (
-                <div key={mod.id} className="group cursor-pointer flex flex-col gap-3">
+                <Link
+                  key={mod.id}
+                  href={`/mods/${mod.id}`}
+                  className="group cursor-pointer flex flex-col gap-3">
                   <div className="aspect-video bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden group-hover:border-purple-500 group-hover:border-4 transition duration-300">
                     <img src={mod.imageUrl} alt={mod.title} className="w-full h-full object-cover" />
                   </div>
@@ -104,7 +114,7 @@ export default function Home() {
 
                     <p className="text-sm text-green-400 font-bold mt-0.5">R$ {mod.price.toFixed(2)}</p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </section>

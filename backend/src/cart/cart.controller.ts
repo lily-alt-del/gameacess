@@ -28,14 +28,14 @@ export class CartController {
     );
   }
 
-  @Post(':productId')
+  @Post(':modId')
   addItem(
     @Req() req: any,
-    @Param('productId') productId: string,
+    @Param('modId') modId: string,
   ) {
     return this.cartService.addItem(
       req.user.id,
-      Number(productId),
+      Number(modId),
     );
   }
 

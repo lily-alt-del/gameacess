@@ -37,8 +37,6 @@ model Product {
 
   createdAt   DateTime @default(now())
 
-  cardItems   CartItem[]
-  orderItems  OrderItem[]
 }
 
 enum ModCategory {
@@ -53,10 +51,12 @@ model Mod {
   description String
   price       Float
   category    ModCategory
-
   imageUrl    String
 
   createdAt   DateTime    @default(now())
+
+  cardItems   CartItem[]
+  orderItems  OrderItem[]
   }
 
 model CartItem {
@@ -65,8 +65,8 @@ model CartItem {
   cartId    Int
   cart    Cart    @relation(fields: [cartId], references: [id])
 
-  productId Int
-  product Product @relation(fields: [productId], references: [id])
+  modId     Int
+  mod     Mod @relation(fields: [modId], references: [id])
 
   quantity  Int
 }
@@ -85,12 +85,12 @@ model Order {
 model OrderItem {
   id        Int   @id @default(autoincrement())
   orderId   Int
-  productId Int
+  modId     Int
   quantity  Int
   price     Float
 
   order   Order   @relation(fields: [orderId], references: [id])
-  product Product @relation(fields: [productId], references: [id])
+  mod Mod @relation(fields: [modId], references: [id])
 }
 
 enum OrderStatus {
