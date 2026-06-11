@@ -13,7 +13,7 @@ export class OrderService {
       include: {
         items: {
           include: {
-            product: true,
+            mod: true,
           },
         },
       },
@@ -27,13 +27,13 @@ export class OrderService {
     let total = 0;
 
     const itemsData = cart.items.map((item) => {
-      const itemTotal = item.quantity * item.product.price;
+      const itemTotal = item.quantity * item.mod.price;
       total += itemTotal;
 
       return {
-        productId: item.productId,
+        modId: item.modId,
         quantity: item.quantity,
-        price: item.product.price,
+        price: item.mod.price,
       };
     });
 
@@ -67,7 +67,7 @@ export class OrderService {
       include: {
         items: {
           include: {
-            product: true,
+            mod: true,
           },
         },
       },
@@ -80,7 +80,7 @@ export class OrderService {
       include: {
         items: {
           include: {
-            product: true,
+            mod: true,
           },
         },
       },

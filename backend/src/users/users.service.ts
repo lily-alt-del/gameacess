@@ -61,7 +61,7 @@ export class UsersService {
       include: {
         items: {
           include: {
-            product: true,
+            mod: true,
           },
         },
       },
@@ -73,7 +73,7 @@ export class UsersService {
         include: {
           items: {
             include: {
-              product: true,
+              mod: true,
             },
           },
         },
