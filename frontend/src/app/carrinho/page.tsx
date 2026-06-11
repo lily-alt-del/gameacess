@@ -13,29 +13,13 @@ export default function CartPage() {
   const { user } = useUser();
   const [cart, setCart] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [authChecking, setAuthChecking] = useState(true); // 🔥 Novo estado para esperar o contexto
 
-  // 🔓 NÃO LOGADO
-  if (!user) {
-    return (
-      <div className="flex items-center justify-center min-h-screen text-center">
-        <div className="flex flex-col items-center gap-4">
-          <h1 className="text-2xl text-white">
-            Você precisa estar logado para acessar o carrinho
-          </h1>
-
-          <Link
-            href="/login"
-            className="text-purple-400 text-lg font-semibold hover:text-purple-300 underline"
-          >
-            Entrar na sua conta
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  // 🔄 Buscar carrinho
+  // 🔄 Efeito para gerenciar a segurança e a busca dos dados
   useEffect(() => {
+    // Se o contexto ainda estiver inicializando, não faz nada
+    if (user === undefined) return; 
+
     async function fetchCart() {
       try {
         const data = await getCart();
@@ -47,11 +31,16 @@ export default function CartPage() {
       }
     }
 
-    fetchCart();
-  }, []);
+    if (user) {
+      fetchCart();
+    }
+    
+    setAuthChecking(false); // 🔥 Terminou de checar o usuário
+  }, [user]);
 
   // 🔄 Atualizar quantidade
   async function handleUpdate(id: number, quantity: number) {
+    if (quantity < 1) return; // evita quantidade zero ou negativa
     await updateCartItem(id, quantity);
     const updated = await getCart();
     setCart(updated);
@@ -64,11 +53,37 @@ export default function CartPage() {
     setCart(updated);
   }
 
+  // 1º Passo: Espera o Contexto do Usuário decidir se está logado ou não
+  if (authChecking) {
+    return <p className="text-white p-10">Verificando sessão...</p>;
+  }
+
+  // 2º Passo: Se terminou de checar e REALMENTE não tem usuário, barra o acesso
+  if (!user) {
+    return (
+      <div className="flex items-center justify-center min-h-screen text-center">
+        <div className="flex flex-col items-center gap-4">
+          <h1 className="text-2xl text-white">
+            Você precisa estar logado para acessar o carrinho
+          </h1>
+          <Link
+            href="/login"
+            className="text-purple-400 text-lg font-semibold hover:text-purple-300 underline"
+          >
+            Entrar na sua conta
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // 3º Passo: Se está logado, mas os dados da API ainda estão vindo
   if (loading) {
     return <p className="text-white p-10">Carregando carrinho...</p>;
   }
 
-  if (!cart || cart.items.length === 0) {
+  // 4º Passo: Carrinho vazio
+  if (!cart || !cart.items || cart.items.length === 0) {
     return <p className="text-white p-10">Seu carrinho está vazio.</p>;
   }
 
@@ -90,11 +105,8 @@ export default function CartPage() {
             </div>
 
             <div className="flex items-center gap-3">
-              {/* diminuir */}
               <button
-                onClick={() =>
-                  handleUpdate(item.id, item.quantity - 1)
-                }
+                onClick={() => handleUpdate(item.id, item.quantity - 1)}
                 className="px-2 bg-purple-700 rounded"
               >
                 -
@@ -102,17 +114,13 @@ export default function CartPage() {
 
               <span>{item.quantity}</span>
 
-              {/* aumentar */}
               <button
-                onClick={() =>
-                  handleUpdate(item.id, item.quantity + 1)
-                }
+                onClick={() => handleUpdate(item.id, item.quantity + 1)}
                 className="px-2 bg-purple-700 rounded"
               >
                 +
               </button>
 
-              {/* remover */}
               <button
                 onClick={() => handleRemove(item.id)}
                 className="text-red-400 ml-4"
@@ -124,7 +132,6 @@ export default function CartPage() {
         ))}
       </div>
 
-      {/* total */}
       <div className="mt-6 text-xl">
         Total: R$ {cart.total}
       </div>

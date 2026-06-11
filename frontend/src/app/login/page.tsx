@@ -23,6 +23,10 @@ export default function LoginPage() {
     try {
       const data = await loginUser({ email, password });
 
+      if (data.token || data.access_token) {
+        localStorage.setItem("token", data.token || data.access_token);
+      }
+
       // 👇 salva usuário no contexto
       setUser({
         id: data.id,

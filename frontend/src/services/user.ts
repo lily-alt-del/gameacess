@@ -16,7 +16,7 @@ export async function loginUser(data: {
   email: string;
   password: string;
 }) {
-  return apiFetch("/users/login", {
+  return apiFetch("/auth/login", {
     method: "POST",
     body: JSON.stringify(data),
   });
