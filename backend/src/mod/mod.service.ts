@@ -38,6 +38,16 @@ export class ModService {
     });
   }
 
+  search(query: string) {
+    return this.prisma.mod.findMany({
+      where: {
+        title: {
+          startsWith: query,
+        },
+      },
+    });
+  }
+
   update(
     id: number,
     data: UpdateModDto,

@@ -7,6 +7,7 @@ import {
   Delete,
   Put,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 
 import { ModService } from './mod.service';
@@ -36,6 +37,11 @@ export class ModController {
     return this.modService.findByCategory(
       category,
     );
+  }
+
+  @Get('search')
+  search(@Query('q') query: string) {
+    return this.modService.search(query);
   }
 
   @Get(':id')

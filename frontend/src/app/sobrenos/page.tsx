@@ -4,7 +4,7 @@ const equipe = [
   { id: 1, nome: "ARION PESSIN", descricao: "bla bla bla", imagem: "/integrantes/arion.png" },
   { id: 2, nome: "GABRIEL PASSARI", descricao: "bla bla bla", imagem: "/integrantes/gabriel.png" },
   { id: 3, nome: "HENRIQUE JOSHUA", descricao: "bla bla bla", imagem: "/integrantes/henrique.png" },
-  { id: 4, nome: "LILY", descricao: "bla bla bla", imagem: "/integrantes/lily.png" },
+  { id: 4, nome: "LILY DOS SANTOS", descricao: "bla bla bla", imagem: "/integrantes/lily.png" },
   { id: 5, nome: "MARIA EDUARDA", descricao: "bla bla bla", imagem: "/integrantes/maria.png" },
   { id: 6, nome: "SABRINA KAORI", descricao: "bla bla bla", imagem: "/integrantes/sabrina.png" },
 ];
