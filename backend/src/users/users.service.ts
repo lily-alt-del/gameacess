@@ -8,10 +8,14 @@ import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService,
+  ) {}
 
   async create(data: CreateUserDto) {
     // 🔎 verifica se email já existe
@@ -83,8 +87,15 @@ export class UsersService {
     // ❌ remove senha
     const { password, ...userWithoutPassword } = user;
 
+    const token = this.jwtService.sign({
+      sub: user.id,
+      email: user.email,
+      role: user.role,
+    });
+
     return {
       message: 'Login realizado com sucesso',
+      token,
       user: userWithoutPassword, // 👈 agora inclui avatar automaticamente
       cart,
     };

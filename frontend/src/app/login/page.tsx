@@ -23,17 +23,22 @@ export default function LoginPage() {
     try {
       const data = await loginUser({ email, password });
 
+      localStorage.setItem('token', data.token);
+
+      localStorage.setItem('user', JSON.stringify(data.user));
+
+      console.log('LOGIN DATA:', data);
+
       // 👇 salva usuário no contexto
       setUser({
-        id: data.id,
-        name: data.name,
-        email: data.email,
-        avatar: data.avatar || '/default-avatar.png',
+        id: data.user.id,
+        name: data.user.name,
+        email: data.user.email,
+        avatar: data.user.avatar || '/default-avatar.png',
       });
 
       // 👇 redireciona pra home
       router.push('/');
-
     } catch (error) {
       console.error('Erro no login:', error);
       alert('Email ou senha inválidos');
@@ -50,7 +55,6 @@ export default function LoginPage() {
       <div className='absolute inset-0 bg-black/70'></div>
 
       <div className='relative w-full max-w-xl p-10 py-10'>
-        
         <Link
           href='/'
           className='mb-8 flex items-center gap-2 text-purple-400 hover:text-purple-300'
@@ -58,17 +62,18 @@ export default function LoginPage() {
           ← <span className='text-sm'>Voltar para a loja</span>
         </Link>
 
-        <div className='h-100 rounded-2xl border border-white/10 bg-white/5 shadow-[0_0_40px_rgba(0,0,0,0.6)] backdrop-blur-xl flex flex-col justify-center' style={{ padding: '60px' }}>
-
+        <div
+          className='flex h-100 flex-col justify-center rounded-2xl border border-white/10 bg-white/5 shadow-[0_0_40px_rgba(0,0,0,0.6)] backdrop-blur-xl'
+          style={{ padding: '60px' }}
+        >
           <h1 className='mb-2 text-3xl font-bold text-white'>Entrar</h1>
 
-          <p className='mb-8 text-purple-200 text-md'>
+          <p className='text-md mb-8 text-purple-200'>
             Acesse sua conta para continuar suas compras.
           </p>
 
           {/* 👇 FORM COM SUBMIT */}
           <form className='space-y-4' onSubmit={handleLogin}>
-            
             {/* Email */}
             <div>
               <label className='mb-2 block text-sm text-purple-200'>
@@ -171,5 +176,5 @@ export default function LoginPage() {
 const styles = {
   label: {
     paddingBlock: '7px',
-  }
+  },
 };
