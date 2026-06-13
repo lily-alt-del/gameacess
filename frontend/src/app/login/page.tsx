@@ -23,11 +23,13 @@ export default function LoginPage() {
     try {
       const data = await loginUser({ email, password });
 
+      console.log('ANTED DE SALVAR: ', data.token);
+
       localStorage.setItem('token', data.token);
 
-      localStorage.setItem('user', JSON.stringify(data.user));
+      console.log('DEPOIS DE SALVAR: ', localStorage.getItem('token'));
 
-      console.log('LOGIN DATA:', data);
+      localStorage.setItem('user', JSON.stringify(data.user));
 
       // 👇 salva usuário no contexto
       setUser({
@@ -40,7 +42,7 @@ export default function LoginPage() {
       // 👇 redireciona pra home
       router.push('/');
     } catch (error) {
-      console.error('Erro no login:', error);
+      console.error(error);
       alert('Email ou senha inválidos');
     }
   };

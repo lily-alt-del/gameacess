@@ -25,13 +25,19 @@ export default function CartPage() {
   async function loadCart() {
     const token = localStorage.getItem('token');
 
+    console.log('TOKEN NO CARRINHO: ', token);
+
     const response = await fetch('http://localhost:3001/cart', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
+    console.log('STATUS CART: ', response.status);
+
     const data = await response.json();
+
+    console.log('DATA CART: ', data);
 
     setCart(data);
   }
@@ -97,7 +103,7 @@ export default function CartPage() {
       <h1 className='mb-8 text-4xl font-bold text-white'>Carrinho</h1>
       <br />
       <div className='flex flex-col gap-6'>
-        {cart.items.map((item) => (
+        {cart.items?.map((item) => (
           <div key={item.id} className='flex gap-4 rounded-xl bg-zinc-900 p-4'>
             <img
               src={item.mod.imageUrl}

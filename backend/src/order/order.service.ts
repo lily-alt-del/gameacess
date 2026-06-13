@@ -26,7 +26,7 @@ export class OrderService {
     // 2. calcular total
     let total = 0;
 
-    const itemsData = cart.items.map((item) => {
+    const itemsData = cart.items?.map((item) => {
       const itemTotal = item.quantity * item.mod.price;
       total += itemTotal;
 
