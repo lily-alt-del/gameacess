@@ -124,4 +124,57 @@ export class UsersService {
 
     return userWithoutPassword;
   }
+
+  async remove(id: number) {
+  const user = await this.prisma.user.findUnique({
+    where: { id },
+  });
+
+  if (!user) {
+    throw new BadRequestException(
+      'Usuário não encontrado',
+    );
+  }
+
+  if (user.role === 'ADMIN') {
+    throw new BadRequestException(
+      'Não é possível remover administradores',
+    );
+  }
+
+  // procura o carrinho do usuário
+  const cart = await this.prisma.cart.findUnique({
+    where: {
+      userId: id,
+    },
+  });
+
+  // remove itens do carrinho
+  if (cart) {
+    await this.prisma.cartItem.deleteMany({
+      where: {
+        cartId: cart.id,
+      },
+    });
+
+    await this.prisma.cart.delete({
+      where: {
+        id: cart.id,
+      },
+    });
+  }
+
+  // remove pedidos do usuário
+  await this.prisma.order.deleteMany({
+    where: {
+      userId: id,
+    },
+  });
+
+  return this.prisma.user.delete({
+    where: {
+      id,
+    },
+  });
+}
 }
