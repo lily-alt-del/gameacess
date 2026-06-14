@@ -1,15 +1,27 @@
-import { IsString, IsNumber } from 'class-validator';
+import { ProductCategory } from '@prisma/client';
+
+import {
+  IsEnum,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 
 export class CreateProductDto {
   @IsString()
-  name!: string;
+  title: string;
 
   @IsString()
-  description!: string;
+  description: string;
 
   @IsNumber()
-  price!: number;
+  price: number;
 
   @IsNumber()
-  stock!: number;
+  stock: number;
+
+  @IsString()
+  imageUrl: string;
+
+  @IsEnum(ProductCategory)
+  category: ProductCategory;
 }

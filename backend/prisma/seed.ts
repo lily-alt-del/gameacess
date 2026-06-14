@@ -3,8 +3,13 @@ import { PrismaClient, ModCategory } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
+  // Limpa os mods
   await prisma.mod.deleteMany();
 
+  // Limpa os produtos
+  await prisma.product.deleteMany();
+
+  // Seed dos mods
   await prisma.mod.createMany({
     data: [
       // DESCUBRA
@@ -181,6 +186,187 @@ async function main() {
         imageUrl:
           'https://m.media-amazon.com/images/I/71RgYPhcYaL._AC_UF1000,1000_QL80_.jpg',
         category: ModCategory.DESCONTO_GRANDE,
+      },
+    ],
+  });
+
+  // Seed dos produtos
+  await prisma.product.createMany({
+    data: [
+      {
+        title: 'Mouse Ergonômico',
+        description:
+          'Mouse ergonômico desenvolvido para proporcionar maior conforto durante longos períodos de uso.',
+        price: 49.9,
+        stock: 20,
+        category: 'PERIFERICOS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Mouse Adaptado para Braço',
+        description:
+          'Mouse adaptado para usuários com mobilidade reduzida nos dedos e mãos.',
+        price: 99.9,
+        stock: 15,
+        category: 'PERIFERICOS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Kit Mouses Adaptados e Joystick',
+        description:
+          'Kit completo com mouse adaptado e joystick para maior acessibilidade.',
+        price: 179.9,
+        stock: 10,
+        category: 'PERIFERICOS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Mouse Adaptado para Pé',
+        description:
+          'Mouse desenvolvido para utilização através dos pés.',
+        price: 99.9,
+        stock: 12,
+        category: 'PERIFERICOS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Mouse Ergonômico Adaptado',
+        description:
+          'Modelo ergonômico com adaptações para diferentes necessidades de acessibilidade.',
+        price: 59.9,
+        stock: 18,
+        category: 'PERIFERICOS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Mouse Gamer Ergonômico',
+        description:
+          'Mouse gamer ergonômico com design voltado para conforto e desempenho.',
+        price: 79.9,
+        stock: 15,
+        category: 'PERIFERICOS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Controle Adaptado para Nintendo Switch',
+        description:
+          'Controle adaptado para oferecer maior acessibilidade em jogos de Nintendo Switch.',
+        price: 249.99,
+        stock: 8,
+        category: 'PERIFERICOS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Controle Adaptado para Xbox Series X',
+        description:
+          'Controle adaptado para usuários com necessidades de acessibilidade no Xbox Series X.',
+        price: 239.9,
+        stock: 8,
+        category: 'PERIFERICOS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Controle Adaptado para PlayStation 5',
+        description:
+          'Controle adaptado para proporcionar acessibilidade em jogos de PS5.',
+        price: 239.9,
+        stock: 8,
+        category: 'PERIFERICOS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Headset Gamer Adaptado',
+        description:
+          'Headset gamer adaptado para maior conforto e acessibilidade.',
+        price: 129.9,
+        stock: 12,
+        category: 'PERIFERICOS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Headset Gamer com Microfone Adaptado',
+        description:
+          'Headset gamer com microfone integrado e recursos de acessibilidade.',
+        price: 149.9,
+        stock: 12,
+        category: 'PERIFERICOS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Camisa AccessGame',
+        description:
+          'Camiseta oficial da AccessGame.',
+        price: 54.9,
+        stock: 30,
+        category: 'ROUPAS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Babylook AccessGame',
+        description:
+          'Babylook oficial da AccessGame.',
+        price: 54.9,
+        stock: 25,
+        category: 'ROUPAS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Camisa Regata AccessGame',
+        description:
+          'Camisa regata oficial da AccessGame.',
+        price: 49.9,
+        stock: 25,
+        category: 'ROUPAS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Blusa Moletom com Capuz AccessGame',
+        description:
+          'Moletom com capuz oficial da AccessGame.',
+        price: 89.9,
+        stock: 20,
+        category: 'ROUPAS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+      },
+
+      {
+        title: 'Blusa Moletom Careca AccessGame',
+        description:
+          'Moletom careca oficial da AccessGame.',
+        price: 84.9,
+        stock: 20,
+        category: 'ROUPAS',
+        imageUrl:
+          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
       },
     ],
   });

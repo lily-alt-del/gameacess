@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+
 import { PrismaService } from 'src/prisma/prisma.service';
 
 import { CreateProductDto } from './dto/create-product.dto';
@@ -24,11 +25,20 @@ export class ProductsService {
     });
   }
 
+  findByCategory(category: string) {
+    return this.prisma.product.findMany({
+      where: {
+        category: category as any,
+      },
+    });
+  }
+
   findOne(id: number) {
     return this.prisma.product.findUnique({
       where: { id },
     });
   }
+
 
   update(
     id: number,

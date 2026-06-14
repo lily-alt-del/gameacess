@@ -9,9 +9,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { ProductsService } from './product.service';
+import { ProductsService } from './products.service';
+
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { Roles } from 'src/auth/roles.decorator';
@@ -22,11 +24,18 @@ export class ProductsController {
     private readonly productsService: ProductsService,
   ) {}
 
-  // TODOS PODEM VER
-
   @Get()
   findAll() {
     return this.productsService.findAll();
+  }
+
+  @Get('category/:category')
+  findByCategory(
+    @Param('category') category: string,
+  ) {
+    return this.productsService.findByCategory(
+      category,
+    );
   }
 
   @Get(':id')
@@ -35,8 +44,6 @@ export class ProductsController {
       Number(id),
     );
   }
-
-  // APENAS ADMIN
 
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
