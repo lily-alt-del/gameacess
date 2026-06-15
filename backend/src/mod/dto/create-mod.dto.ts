@@ -1,23 +1,29 @@
 import { ModCategory } from '@prisma/client'
 import {
   IsEnum,
+  IsNotEmpty,
   IsNumber,
   IsString,
+  Min,
 } from 'class-validator';
 
 export class CreateModDto {
   @IsString()
-  title: string;
+  @IsNotEmpty()
+  title!: string;
 
   @IsString()
-  description: string;
+  @IsNotEmpty()
+  description!: string;
 
   @IsNumber()
-  price: number;
+  @Min(0.01)
+  price!: number;
 
   @IsString()
-  imageUrl: string;
+  @IsNotEmpty()
+  imageUrl!: string;
 
   @IsEnum(ModCategory)
-  category: ModCategory;
+  category!: ModCategory;
 }

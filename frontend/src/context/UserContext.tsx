@@ -18,15 +18,18 @@ type UserContextType = {
 const UserContext = createContext<UserContextType | null>(null);
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User>(null);
+  const [user, setUser] = useState<User>(() => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
 
-  // 🔥 Persistência simples (importantíssimo)
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+  const storedUser =
+    localStorage.getItem('user');
+
+  return storedUser
+    ? JSON.parse(storedUser)
+    : null;
+});
 
   const saveUser = (userData: User) => {
     setUser(userData);
@@ -35,7 +38,10 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     setUser(null);
+
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
+
     window.location.href = '/'; // redireciona pra home após logout
   };
 

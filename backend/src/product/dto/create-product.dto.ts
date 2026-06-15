@@ -2,26 +2,33 @@ import { ProductCategory } from '@prisma/client';
 
 import {
   IsEnum,
+  IsNotEmpty,
   IsNumber,
   IsString,
+  Min,
 } from 'class-validator';
 
 export class CreateProductDto {
   @IsString()
-  title: string;
+  @IsNotEmpty()
+  title!: string;
 
   @IsString()
-  description: string;
+  @IsNotEmpty()
+  description!: string;
 
   @IsNumber()
-  price: number;
+  @Min(0.01)
+  price!: number;
 
   @IsNumber()
-  stock: number;
+  @Min(0)
+  stock!: number;
 
   @IsString()
-  imageUrl: string;
+  @IsNotEmpty()
+  imageUrl!: string;
 
   @IsEnum(ProductCategory)
-  category: ProductCategory;
+  category!: ProductCategory;
 }

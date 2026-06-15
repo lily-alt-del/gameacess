@@ -77,6 +77,9 @@ export default function ProfilePage() {
           Sair da conta
         </button>
       </div>
+
+      {/* BOTÃO DE ADMIN */}
+      
     </>
   );
 }
