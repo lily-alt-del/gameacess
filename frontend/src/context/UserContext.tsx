@@ -7,10 +7,12 @@ type User = {
   name: string;
   email: string;
   avatar?: string;
+  role?: string;
 } | null;
 
 type UserContextType = {
   user: User;
+  loading: boolean;
   setUser: (user: User) => void;
   logout: () => void;
 };
@@ -18,18 +20,18 @@ type UserContextType = {
 const UserContext = createContext<UserContextType | null>(null);
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User>(() => {
-  if (typeof window === 'undefined') {
-    return null;
-  }
+  const [user, setUser] = useState<User>(null);
+  const [loading, setLoading] = useState(true);
 
-  const storedUser =
-    localStorage.getItem('user');
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
 
-  return storedUser
-    ? JSON.parse(storedUser)
-    : null;
-});
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+
+    setLoading(false);
+  }, []);
 
   const saveUser = (userData: User) => {
     setUser(userData);
@@ -46,7 +48,14 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser: saveUser, logout }}>
+    <UserContext.Provider
+      value={{
+        user,
+        loading,
+        setUser: saveUser,
+        logout,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

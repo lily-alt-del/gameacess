@@ -8,15 +8,15 @@ import { useEffect } from 'react';
 import { uploadImage } from '@/services/upload';
 
 export default function ProfilePage() {
-  const { user, setUser } = useUser();
+  const { user, setUser, loading } = useUser();
   const router = useRouter();
 
   // 🔒 Proteção de rota
   useEffect(() => {
-    if (!user) {
+    if (!loading && !user) {
       router.push('/login');
     }
-  }, [user, router]);
+  }, [loading, user, router]);
 
   // 🚪 Logout
   const handleLogout = () => {
@@ -25,7 +25,17 @@ export default function ProfilePage() {
     router.push('/');
   };
 
-  if (!user) return null;
+  if (loading) {
+    return (
+      <div className='flex h-screen items-center justify-center'>
+        Carregando...
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <>
@@ -55,6 +65,15 @@ export default function ProfilePage() {
         <p className='text-sm text-purple-300'>{user.email}</p>
       </div>
 
+      {/* BOTÃO ADMIN - APENAS PARA ADMINISTRADORES */}
+      {user?.role === 'ADMIN' && (
+        <Link href='/admin'>
+          <button className='cursor-pointer rounded-md bg-purple-600 text-white transition hover:bg-purple-700'>
+            Painel Administrativo
+          </button>
+        </Link>
+      )}
+
       {/* BOTÃO EDITAR PERFIL */}
       <div className='mt-6 pl-10' style={{ paddingLeft: 40 }}>
         <Link href='/profile/edit'>
@@ -79,7 +98,6 @@ export default function ProfilePage() {
       </div>
 
       {/* BOTÃO DE ADMIN */}
-      
     </>
   );
 }

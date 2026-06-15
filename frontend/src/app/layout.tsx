@@ -42,7 +42,7 @@ export default function RootLayout({
  return (
     <html lang="en">
       <body
-        className={`${antonSC.variable} ${openDyslexic.variable} flex flex-col bg-[#0f0a1b]`}
+        className={`${antonSC.variable} ${openDyslexic.variable} flex flex-col bg-[#0f0a1b] `}
       >
         <UserProvider>
           <LayoutClient>

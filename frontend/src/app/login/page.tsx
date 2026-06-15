@@ -37,6 +37,7 @@ export default function LoginPage() {
         name: data.user.name,
         email: data.user.email,
         avatar: data.user.avatar || '/default-avatar.png',
+        role: data.user.role,
       });
 
       // 👇 redireciona pra home

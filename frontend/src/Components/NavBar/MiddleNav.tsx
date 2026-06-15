@@ -7,7 +7,7 @@ import { CartItem } from '@/types';
 import { useUser } from '@/context/UserContext';
 
 export default function MiddleNav() {
-  const { user, logout } = useUser();
+  const { user, logout, loading } = useUser();
 
   // 👇 controle do dropdown
   const [open, setOpen] = useState(false);
@@ -24,6 +24,10 @@ export default function MiddleNav() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <div className='items-center justify-between border-b border-purple-800' 
@@ -75,10 +79,10 @@ export default function MiddleNav() {
               {/* Avatar */}
               <div
                 onClick={() => setOpen(!open)}
-                className='w-10 h-10 rounded-full overflow-hidden border border-purple-500 cursor-pointer'
+                className="w-10 h-10 rounded-full overflow-hidden border border-purple-500 cursor-pointer"
               >
                 <Image
-                  src={user.avatar || '/default-avatar.png'}
+                  src={user.avatar || "/default-avatar.png"}
                   alt="User"
                   width={40}
                   height={40}
