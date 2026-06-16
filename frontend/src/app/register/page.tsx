@@ -127,7 +127,7 @@ export default function RegisterPage() {
         {/* Voltar */}
         <Link
           href='/'
-          className='mb-8 flex items-center gap-2 text-purple-400 transition-colors hover:text-purple-300'
+          className='mb-8 flex items-center gap-2 text-purple-400 transition-colors hover:text-purple-300' style={{ paddingBottom: 10 }}
         >
           <ArrowLeft className='h-4 w-4' />
 
@@ -137,7 +137,7 @@ export default function RegisterPage() {
         </Link>
 
         {/* Card */}
-        <div className='rounded-2xl border border-white/10 bg-white/5 p-6 shadow-[0_0_40px_rgba(0,0,0,0.6)] backdrop-blur-xl'>
+        <div className='rounded-2xl border border-white/10 bg-white/5 p-6 shadow-[0_0_40px_rgba(0,0,0,0.6)] backdrop-blur-xl' style={{ padding: 15 }}>
           <h1 className='mb-2 text-3xl font-bold text-white'>
             Cadastrar
           </h1>
@@ -148,7 +148,7 @@ export default function RegisterPage() {
 
           <form onSubmit={handleSubmit} className='space-y-4'>
             {/* Preview Avatar */}
-            <div className='flex justify-center'>
+            <div className='flex justify-center' style={{ paddingTop: 20 }}>
               <div className='relative h-24 w-24 overflow-hidden rounded-full border-2 border-purple-500'>
                 <Image
                   src={preview || '/default-avatar.png'}
@@ -160,8 +160,8 @@ export default function RegisterPage() {
             </div>
 
             {/* Upload Avatar */}
-            <div>
-              <label className='mb-2 block text-sm text-purple-200'>
+            <div style={{ paddingBottom: 20 }}>
+              <label className='mb-2 block text-md text-purple-200'>
                 Avatar (opcional)
               </label>
 
@@ -174,8 +174,8 @@ export default function RegisterPage() {
             </div>
 
             {/* Nome */}
-            <div>
-              <label className='mb-2 block text-sm text-purple-200'>
+            <div style={{ paddingBottom: 10 }}>
+              <label className='mb-2 block text-purple-200'>
                 Nome Completo
               </label>
 
@@ -186,12 +186,13 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 className='bg-dark-bg border-dark-border w-full rounded-lg border px-4 py-3 text-white outline-none focus:border-purple-500'
                 placeholder='Seu nome completo'
+                style={{ padding: 5 }}
               />
             </div>
 
             {/* Email */}
-            <div>
-              <label className='mb-2 block text-sm text-purple-200'>
+            <div style={{ paddingBottom: 10 }}>
+              <label className='mb-2 block text-purple-200'>
                 Email
               </label>
 
@@ -202,12 +203,13 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 className='bg-dark-bg border-dark-border w-full rounded-lg border px-4 py-3 text-white outline-none focus:border-purple-500'
                 placeholder='seu@email.com'
+                style={{ padding: 5 }}
               />
             </div>
 
             {/* Senha */}
-            <div>
-              <label className='mb-2 block text-sm text-purple-200'>
+            <div style={{ paddingBottom: 10 }}>
+              <label className='mb-2 block text-purple-200'>
                 Senha
               </label>
 
@@ -219,6 +221,7 @@ export default function RegisterPage() {
                   onChange={handleChange}
                   className='bg-dark-bg border-dark-border w-full rounded-lg border px-4 py-3 text-white outline-none focus:border-purple-500'
                   placeholder='******'
+                  style={{ padding: 5 }}
                 />
 
                 <button
@@ -238,8 +241,8 @@ export default function RegisterPage() {
             </div>
 
             {/* Confirmar Senha */}
-            <div>
-              <label className='mb-2 block text-sm text-purple-200'>
+            <div style={{ paddingBottom: 10 }}>
+              <label className='mb-2 block text-purple-200'>
                 Confirmar Senha
               </label>
 
@@ -255,6 +258,7 @@ export default function RegisterPage() {
                   onChange={handleChange}
                   className='bg-dark-bg border-dark-border w-full rounded-lg border px-4 py-3 text-white outline-none focus:border-purple-500'
                   placeholder='******'
+                  style={{ padding: 5 }}
                 />
 
                 <button
@@ -276,11 +280,11 @@ export default function RegisterPage() {
             </div>
 
             {/* Termos */}
-            <div className='flex items-start'>
+            <div className='flex items-start' style={{ paddingBottom: 10 }}>
               <input
                 type='checkbox'
                 id='terms'
-                className='mt-1 h-4 w-4 accent-purple-600'
+                className='mt-1 h-4 w-4 accent-purple-600 cursor-pointer'
                 required
               />
 
@@ -299,15 +303,18 @@ export default function RegisterPage() {
             </div>
 
             {/* Botão */}
+            <div className='flex justify-center'>
             <button
               type='submit'
               disabled={loading}
-              className='w-full rounded-lg bg-purple-600 py-3 font-semibold text-white transition hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50'
+              className='text-sm border border-purple-500 rounded hover:bg-purple-500 hover:text-black transition hover:border-purple-500 cursor-pointer'
+              style={{ padding: 8 }}
             >
               {loading
                 ? 'Criando conta...'
                 : 'Cadastrar'}
             </button>
+            </div>
           </form>
 
           {/* Divider */}
@@ -334,7 +341,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Footer */}
-        <p className='mt-6 text-center text-xs text-white'>
+        <p className='mt-6 text-center text-xs text-white' style={{ paddingTop: 10 }}>
           Seus dados são protegidos
         </p>
       </div>

@@ -62,13 +62,13 @@ export default function MiddleNav() {
           {!user ? (
             <div className="flex items-center gap-3">
               <Link href="/login">
-                <button className='text-sm border border-purple-500 rounded hover:bg-white hover:text-black transition hover:border-white' style={{ padding: '5px 15px' }}>
+                <button className='text-sm border border-purple-500 rounded hover:bg-white hover:text-black transition hover:border-white cursor-pointer' style={{ padding: '5px 15px' }}>
                   Login
                 </button>
               </Link>
 
               <Link href="/register">
-                <button className='text-sm border border-purple-500 rounded hover:bg-white hover:text-black transition hover:border-white' style={{ padding: '5px 15px' }}>
+                <button className='text-sm border border-purple-500 rounded hover:bg-white hover:text-black transition hover:border-white cursor-pointer' style={{ padding: '5px 15px' }}>
                   Cadastro
                 </button>
               </Link>

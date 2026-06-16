@@ -57,21 +57,22 @@ export default function LoginPage() {
 
       <div className='absolute inset-0 bg-black/70'></div>
 
-      <div className='relative w-full max-w-xl p-10 py-10'>
+      <div className='relative w-full max-w-md'>
         <Link
           href='/'
           className='mb-8 flex items-center gap-2 text-purple-400 hover:text-purple-300'
+          style={{ paddingBottom: 10 }}
         >
           ← <span className='text-sm'>Voltar para a loja</span>
         </Link>
 
         <div
-          className='flex h-100 flex-col justify-center rounded-2xl border border-white/10 bg-white/5 shadow-[0_0_40px_rgba(0,0,0,0.6)] backdrop-blur-xl'
-          style={{ padding: '60px' }}
+          className='flex flex-col justify-center rounded-2xl border border-white/10 bg-white/5 shadow-[0_0_40px_rgba(0,0,0,0.6)] backdrop-blur-xl'
+          style={{ padding: 20 }}
         >
           <h1 className='mb-2 text-3xl font-bold text-white'>Entrar</h1>
 
-          <p className='text-md mb-8 text-purple-200'>
+          <p className='text-md mb-8 text-purple-200' style={{ paddingBottom: 20 }}>
             Acesse sua conta para continuar suas compras.
           </p>
 
@@ -86,7 +87,7 @@ export default function LoginPage() {
                 type='email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className='bg-dark-bg border-dark-border w-full rounded-lg border px-4 py-3 text-white placeholder:text-purple-500 focus:border-purple-500 focus:outline-none'
+                className='bg-dark-bg border-dark-border w-full rounded-lg border px-4 py-3 text-white outline-none focus:border-purple-500'
                 placeholder='seu@email.com'
                 style={styles.label}
               />
@@ -94,7 +95,7 @@ export default function LoginPage() {
 
             {/* Senha */}
             <div>
-              <label className='mb-2 block text-sm text-purple-200'>
+              <label className='mb-2 block text-sm text-purple-200' style={{ paddingTop: 10 }}>
                 Senha
               </label>
 
@@ -103,7 +104,7 @@ export default function LoginPage() {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className='bg-dark-bg border-dark-border w-full rounded-lg border px-4 py-3 pr-10 text-white placeholder:text-purple-500 focus:border-purple-500 focus:outline-none'
+                  className='bg-dark-bg border-dark-border w-full rounded-lg border px-4 py-3 text-white outline-none focus:border-purple-500'
                   placeholder='******'
                   style={styles.label}
                 />
@@ -118,7 +119,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div className='flex items-center'>
+            <div className='flex items-center' style={{ paddingTop: 10 }}>
               <input
                 type='checkbox'
                 id='remember'
@@ -133,12 +134,14 @@ export default function LoginPage() {
             </div>
 
             {/* 👇 BOTÃO AGORA FUNCIONA */}
+            <div className='flex justify-center' style={{ paddingTop: 10 }}>
             <button
               type='submit'
-              className='w-full rounded-lg bg-purple-600 py-3 font-semibold text-white hover:bg-purple-700'
+              className='text-sm border border-purple-500 rounded hover:bg-white hover:text-black transition hover:border-white cursor-pointer' style={{ padding: 8 }}
             >
               Entrar
             </button>
+            </div>
           </form>
 
           <div className='my-6 flex items-center gap-4'>
@@ -158,16 +161,11 @@ export default function LoginPage() {
               </Link>
             </p>
 
-            <Link
-              href='#'
-              className='block text-purple-400 hover:text-purple-300'
-            >
-              Esqueceu a senha?
-            </Link>
+            
           </div>
         </div>
 
-        <p className='mt-8 text-center text-xs text-white'>
+        <p className='mt-8 text-center text-xs text-white' style={{ paddingTop: 10 }}>
           Ao entrar, você concorda com nossos Termos de Serviço e Política de
           Privacidade
         </p>
@@ -179,5 +177,6 @@ export default function LoginPage() {
 const styles = {
   label: {
     paddingBlock: '7px',
+    
   },
 };

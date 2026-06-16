@@ -62,7 +62,7 @@ export default function ModPage() {
   }
 
   return (
-    <main className='mx-auto max-w-7xl p-10'>
+    <main className="mx-auto max-w-7xl" style={{ padding: 40 }}>
       <div className='grid gap-10 md:grid-cols-2'>
         <div>
           <img
@@ -72,25 +72,28 @@ export default function ModPage() {
           />
         </div>
 
-        <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-4 justify-between'>
+          <div>
           <h1 className='text-4xl font-bold text-white'>{mod.title}</h1>
-
+          <br />
           <p className='text-zinc-300'>{mod.description}</p>
-
-          <p className='text-3xl font-bold text-green-400'>
+          </div>
+          <div>
+          <p className='text-3xl font-bold text-blue-500'>
             R$ {mod.price.toFixed(2)}
           </p>
-
+          <br />
           <div className='mt-4 flex gap-4'>
             <button 
             onClick={addToCart}
-            className='rounded-lg bg-purple-600 px-6 py-3'>
+            className='text-md border border-purple-500 rounded hover:bg-white hover:text-black transition hover:border-white cursor-pointer' style={{ padding: 8 }}>
               Adicionar ao Carrinho
             </button>
 
-            <button className='rounded-lg bg-green-600 px-6 py-3'>
+            <button className='text-md border text-blue-500 border-blue-500 rounded hover:bg-blue-500 hover:text-[#0f0a1b] transition hover:border-blue-500 cursor-pointer' style={{ padding: 8 }}>
               Comprar Agora
             </button>
+            </div>
           </div>
         </div>
       </div>

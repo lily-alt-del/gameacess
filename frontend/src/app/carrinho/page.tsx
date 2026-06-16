@@ -100,7 +100,7 @@ export default function CartPage() {
   if (!user) {
     return (
       <main className='flex min-h-[70vh] flex-col items-center justify-center gap-6'>
-        <h1 className='text-center text-2xl text-white'>
+        <h1 className='text-center text-2xl text-gray-600 '>
           Faça login ou cadastre-se para acessar o carrinho
         </h1>
       </main>
