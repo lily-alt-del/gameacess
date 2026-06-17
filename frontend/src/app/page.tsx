@@ -61,8 +61,9 @@ export default function Home() {
                   key={mod.id}
                   href={`/mods/${mod.id}`}
                   className="group cursor-pointer flex flex-col gap-3">
-                  <div className="aspect-[3/4] bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden group-hover:border-purple-500 group-hover:border-4 transition duration-300">
-                    <img src={mod.imageUrl} alt={mod.title} className="w-full h-full object-cover" />
+                  <div className="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden group-hover:border-purple-500 group-hover:border-4 transition duration-300">
+                    <img src={mod.imageUrl} alt={mod.title} 
+                    style={{ width: 400, height: 300 }} />
                   </div>
 
                   <div>
@@ -80,14 +81,14 @@ export default function Home() {
             <h2 className="text-4xl text-gray-100 font-bold uppercase tracking-wider mb-6" style={{ paddingBottom: '20px' }}>Descontos em Destaque</h2>
 
             {/* GRID SUPERIOR */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-8" style={{ paddingBottom: '20px' }}>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4" style={{ paddingBottom: '20px' }}>
               {descontosPrincipais.map((mod) => (
                 <Link
                   key={mod.id}
                   href={`/mods/${mod.id}`}
                   className="group cursor-pointer flex flex-col gap-2">
-                  <div className="aspect-[3/4] bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden group-hover:border-purple-500 group-hover:border-2 transition duration-300">
-                    <img src={mod.imageUrl} alt={mod.title} className="w-full h-full object-cover" />
+                  <div className="bg-zinc-900 border border-zinc-800 rounded-lg group-hover:border-purple-500 group-hover:border-2 transition duration-300">
+                    <img src={mod.imageUrl} alt={mod.title} style={{ width:200, height: 200 }} />
                   </div>
                   <div>
                   <h3 className="text-xs font-medium text-zinc-400 group-hover:text-purple-300 transition line-clamp-1">{mod.title}</h3>

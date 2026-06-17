@@ -20,7 +20,7 @@ async function main() {
           'Mod de daltonismo para Tomodachi Life: melhora as cores e o contraste.',
         price: 13.2,
         imageUrl:
-          'https://www.leiaja.com/wp-content/uploads/2026/05/Divulgacao-Nintendo.jpg',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1781657041/tomodachi_life_bqwgye.png',
         category: ModCategory.DESCUBRA,
       },
 

@@ -119,7 +119,7 @@ export default function CartPage() {
 
   return (
     <>
-      <main className='mx-auto max-w-6xl p-10'>
+      <main className='mx-auto max-w-6xl p-10 min-h-100'>
         <h1 className='mb-8 text-4xl font-bold text-white'>Carrinho</h1>
         <br />
         <div className='flex flex-col gap-6'>

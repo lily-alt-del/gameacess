@@ -38,7 +38,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <>
+    <div className='min-h-207.5'>
       {/* HEADER */}
       <div className='flex h-[150] items-center border-b-4 border-purple-500 bg-purple-900 px-5 text-3xl text-purple-950'>
         <Link href='/'>
@@ -98,6 +98,6 @@ export default function ProfilePage() {
       </div>
 
       {/* BOTÃO DE ADMIN */}
-    </>
+    </div>
   );
 }

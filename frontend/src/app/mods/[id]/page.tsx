@@ -62,17 +62,18 @@ export default function ModPage() {
   }
 
   return (
-    <main className="mx-auto max-w-7xl" style={{ padding: 40 }}>
-      <div className='grid gap-10 md:grid-cols-2'>
+    <main className="mx-auto max-w-7xl justify-content" style={{ paddingTop: '50px', paddingBottom: '50px', margin: '0 auto' }}>
+      <div className='grid md:grid-cols-2 '>
         <div>
           <img
             src={mod.imageUrl}
             alt={mod.title}
             className='w-full rounded-xl'
+            style={{ height: 450, width: 450 }}
           />
         </div>
 
-        <div className='flex flex-col gap-4 justify-between'>
+        <div className='flex flex-col justify-between'>
           <div>
           <h1 className='text-4xl font-bold text-white'>{mod.title}</h1>
           <br />
