@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
 import Footer from '../../components/Footer'
+import { useRouter } from 'expo-router';
 
 const camisetas = [
   { id: 1, nome: "Camiseta Dinossauro", preco: "R$55,95", imagem: require('../../assets/images/camisetas/dino.png') },
@@ -17,6 +18,8 @@ const camisetas = [
 ];
 
 export default function CamisetasPage() {
+
+  const router = useRouter();
 
   const addCart = async (product: any) => {
     try {
@@ -58,7 +61,11 @@ export default function CamisetasPage() {
         }
         
         renderItem={({ item }) => (
-          <TouchableOpacity activeOpacity={0.7} style={styles.card}>
+          <TouchableOpacity 
+  activeOpacity={0.7} 
+  style={styles.card}
+  onPress={() => router.push(`/produtos/${item.id}`)} // ➡️ Navega para a página dinâmica de detalhes!
+>
             <View style={styles.imageContainer}>
               <Image 
                 source={item.imagem} 
