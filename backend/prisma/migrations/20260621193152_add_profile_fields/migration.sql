@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `user` ADD COLUMN `bio` VARCHAR(191) NULL DEFAULT '',
+    ADD COLUMN `pronouns` VARCHAR(191) NULL DEFAULT '';

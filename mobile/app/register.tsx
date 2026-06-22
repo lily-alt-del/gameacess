@@ -3,9 +3,11 @@ import {
   View, Text, TextInput, TouchableOpacity, StyleSheet, 
   KeyboardAvoidingView, Platform, ScrollView, ImageBackground 
 } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router'; // 👈 Importado o useRouter para navegação
+import { registerMobile } from '../services/api'; // 👈 Importada a função do nosso arquivo centralizado
 
 export default function RegisterPage() {
+  const router = useRouter(); // 👈 Hook para redirecionar o usuário
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
@@ -15,8 +17,46 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false); // 🔌 Estado para desabilitar o botão durante a requisição
 
   const backgroundImage = require('../assets/images/background.jpg');
+
+  // 🔥 FUNÇÃO ACIONADA AO CLICAR EM CADASTRAR
+  const handleRegister = async () => {
+    // 1. Validações de campos vazios
+    if (!name || !email || !password || !confirmPassword) {
+      alert('Por favor, preencha todos os campos.');
+      return;
+    }
+
+    // 2. Validação se as senhas batem
+    if (password !== confirmPassword) {
+      alert('As senhas não coincidem.');
+      return;
+    }
+
+    // 3. Validação dos termos de serviço
+    if (!termsAccepted) {
+      alert('Você precisa aceitar os Termos de Serviço para continuar.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      // Envia os dados para a rota POST /users do NestJS
+      await registerMobile({ name, email, password });
+      
+      alert('Conta criada com sucesso! Faça seu login para continuar.');
+      
+      // Envia o usuário direto para a tela de login que acabamos de configurar
+      router.push('/login');
+    } catch (error: any) {
+      console.error(error);
+      alert(error.message || 'Erro ao criar conta. Verifique os dados ou tente outro e-mail.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <ImageBackground source={backgroundImage} style={styles.background} resizeMode="cover">
@@ -24,7 +64,6 @@ export default function RegisterPage() {
         <KeyboardAvoidingView style={styles.keyboardContainer} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
             
-            {/* Botão Voltar para a loja */}
             <Link href="/" asChild>
               <TouchableOpacity style={styles.backButton}>
                 <Text style={styles.backText}>← Voltar para a loja</Text>
@@ -70,6 +109,7 @@ export default function RegisterPage() {
                     placeholder="••••••••" 
                     placeholderTextColor="#a855f7" 
                     secureTextEntry={!showPassword}
+                    autoCapitalize="none"
                     value={password}
                     onChangeText={setPassword}
                   />
@@ -88,6 +128,7 @@ export default function RegisterPage() {
                     placeholder="••••••••" 
                     placeholderTextColor="#a855f7" 
                     secureTextEntry={!showConfirmPassword}
+                    autoCapitalize="none"
                     value={confirmPassword}
                     onChangeText={setConfirmPassword}
                   />
@@ -97,7 +138,7 @@ export default function RegisterPage() {
                 </View>
               </View>
 
-              {/* Termos (Checkbox customizado) */}
+              {/* Termos */}
               <TouchableOpacity style={styles.termsContainer} activeOpacity={0.7} onPress={() => setTermsAccepted(!termsAccepted)}>
                 <View style={[styles.checkbox, termsAccepted && styles.checkboxChecked]}>
                   {termsAccepted && <Text style={styles.checkmark}>✓</Text>}
@@ -108,18 +149,23 @@ export default function RegisterPage() {
               </TouchableOpacity>
 
               {/* Botão Cadastrar */}
-              <TouchableOpacity style={styles.registerButton} activeOpacity={0.8}>
-                <Text style={styles.registerButtonText}>Cadastrar</Text>
+              <TouchableOpacity 
+                style={[styles.registerButton, loading && { opacity: 0.7 }]} 
+                activeOpacity={0.8}
+                onPress={handleRegister} // 🔥 Dispara a função de envio para a API
+                disabled={loading} // Evita cliques simultâneos
+              >
+                <Text style={styles.registerButtonText}>
+                  {loading ? 'Cadastrando...' : 'Cadastrar'}
+                </Text>
               </TouchableOpacity>
 
-              {/* Divisor "ou" */}
               <View style={styles.dividerContainer}>
                 <View style={styles.dividerLine} />
                 <Text style={styles.dividerText}>ou</Text>
                 <View style={styles.dividerLine} />
               </View>
 
-              {/* ======= AQUI ESTÁ O PING-PONG PARA O LOGIN ======= */}
               <View style={styles.loginLinkContainer}>
                 <Text style={styles.haveAccountText}>Já tem conta? </Text>
                 <Link href="/login" asChild>
@@ -131,7 +177,6 @@ export default function RegisterPage() {
 
             </View>
 
-            {/* Footer */}
             <Text style={styles.footerText}>
               Seus dados são protegidos e nunca serão compartilhados com terceiros
             </Text>
@@ -143,7 +188,7 @@ export default function RegisterPage() {
   );
 }
 
-// Estilos padronizados para manter a identidade visual do Login
+// ... Os seus estilos do StyleSheet permanecem exatamente iguais abaixo ...
 const styles = StyleSheet.create({
   background: { flex: 1, width: '100%', height: '100%' },
   overlay: { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.7)' },

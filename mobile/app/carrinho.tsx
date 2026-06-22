@@ -1,286 +1,305 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import Footer from '../components/Footer'; // 1. IMPORTAMOS O FOOTER
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { apiFetchMobile } from '../services/api';
+import { useRouter } from 'expo-router';
 
-const itensMock = [
-  { id: 1, nome: "Controle Adaptativo Pro", preco: 349.90, quantidade: 1, imagem: require('../assets/images/icon.png') },
-  { id: 2, nome: "Cabo Adaptador USB-C", preco: 59.90, quantidade: 2, imagem: require('../assets/images/icon.png') },
-  { id: 3, nome: "Mod de Acessibilidade p/ Jogo X", preco: 29.90, quantidade: 1, imagem: require('../assets/images/icon.png') },
-];
+// 1. Interfaces mantidas idênticas às do seu Backend/Front
+interface CartItem {
+  id: number;
+  quantity: number;
+  mod: {
+    id: number;
+    title: string;
+    price: number;
+    imageUrl: string;
+  };
+}
 
-export default function MeuCarrinho() {
-  const subtotal = itensMock.reduce((sum, item) => sum + item.preco * item.quantidade, 0);
+interface Cart {
+  id: number;
+  items: CartItem[];
+}
+
+export default function CartMobile() {
+  const router = useRouter();
+  const [cart, setCart] = useState<Cart | null>(null);
+  const [loading, setLoading] = useState(true);
+  
+  // Mock temporário para simular a validação de usuário que você tinha no Context do Front
+  // (Caso você use uma validação global no Mobile, pode substituir aqui)
+  const [hasUser, setHasUser] = useState(true); 
+
+  // 2. Buscar o carrinho usando a apiFetchMobile genérica
+  async function loadCart() {
+    try {
+      setLoading(true);
+      const data = await apiFetchMobile('/cart', { method: 'GET' });
+      setCart(data);
+    } catch (error) {
+      console.error('Erro ao carregar carrinho no Mobile:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // 3. Atualizar quantidade
+  async function updateQuantity(itemId: number, quantity: number) {
+    try {
+      await apiFetchMobile(`/cart/${itemId}`, {
+        method: 'PUT',
+        body: JSON.stringify({ quantity }),
+      });
+      loadCart(); // Recarrega os dados atualizados
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // 4. Remover item do carrinho
+  async function removeItem(itemId: number) {
+    try {
+      await apiFetchMobile(`/cart/${itemId}`, {
+        method: 'DELETE',
+      });
+      loadCart();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    if (hasUser) {
+      loadCart();
+    }
+  }, [hasUser]);
+
+  // Estado de carregamento visual nativo
+  if (loading) {
+    return (
+      <View style={[styles.container, styles.center]}>
+        <ActivityIndicator size="large" color="#9333ea" />
+        <Text style={styles.loadingText}>Carregando seu carrinho...</Text>
+      </View>
+    );
+  }
+
+  // Estado caso o usuário precise logar
+  if (!hasUser) {
+    return (
+      <View style={[styles.container, styles.center]}>
+        <Text style={styles.warningText}>
+          Faça login ou cadastre-se para acessar o carrinho
+        </Text>
+        <TouchableOpacity style={styles.loginButton} onPress={() => router.push('/login')}>
+          <Text style={styles.loginButtonText}>Ir para Login</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  // Cálculo do valor total global do carrinho
+  const total = cart?.items?.reduce((acc, item) => acc + item.mod.price * item.quantity, 0) || 0;
 
   return (
-    <View style={styles.safeContainer}>
-      
-      {/* 2. SCROLLVIEW COM A REGRA DO FLEXGROW */}
-      <ScrollView 
-        style={styles.container} 
-        contentContainerStyle={{ flexGrow: 1 }}
-      >
-        
-        {/* 3. VIEW INTERNA PARA APLICAR O ESPAÇAMENTO (PADDING) SÓ NO CONTEÚDO */}
-        <View style={styles.content}>
-          
-          {/* Título */}
-          <Text style={styles.pageTitle}>
-            MEU <Text style={styles.textPurple}>CARRINHO</Text>
-          </Text>
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      <Text style={styles.title}>Carrinho</Text>
 
-          {/* Lista de Produtos */}
-          <View style={styles.sectionHeader}>
-            <Ionicons name="cart-outline" size={24} color="#A855F7" />
-            <Text style={styles.sectionTitle}>Produtos no seu pedido</Text>
-          </View>
-
-          {itensMock.map((item) => (
-            <View key={item.id} style={styles.itemCard}>
-              {/* Imagem */}
-              <Image source={item.imagem} style={styles.itemImage} />
+      {cart?.items && cart.items.length > 0 ? (
+        <View style={styles.itemsList}>
+          {cart.items.map((item) => (
+            <View key={item.id} style={styles.cartCard}>
+              <Image source={{ uri: item.mod.imageUrl }} style={styles.productImage} />
               
-              {/* Detalhes do Produto */}
-              <View style={styles.itemDetails}>
-                <Text style={styles.itemName} numberOfLines={2}>{item.nome}</Text>
-                <Text style={styles.itemUnitPrice}>Unid: R$ {item.preco.toFixed(2)}</Text>
-                
-                {/* Controles de Quantidade e Preço Total */}
-                <View style={styles.itemRow}>
-                  <View style={styles.qtdContainer}>
-                    <TouchableOpacity>
-                      <Text style={styles.qtdButton}>-</Text>
+              <View style={styles.infoContainer}>
+                <Text style={styles.productTitle} numberOfLines={2}>{item.mod.title}</Text>
+                <Text style={styles.productPrice}>R$ {item.mod.price.toFixed(2)}</Text>
+
+                <View style={styles.actionsRow}>
+                  {/* Controles de Quantidade */}
+                  <View style={styles.quantityControls}>
+                    <TouchableOpacity 
+                      style={styles.quantityButton} 
+                      onPress={() => item.quantity > 1 && updateQuantity(item.id, item.quantity - 1)}
+                    >
+                      <Text style={styles.quantityButtonText}>-</Text>
                     </TouchableOpacity>
-                    <Text style={styles.qtdText}>{item.quantidade}</Text>
-                    <TouchableOpacity>
-                      <Text style={styles.qtdButton}>+</Text>
+                    
+                    <Text style={styles.quantityText}>{item.quantity}</Text>
+                    
+                    <TouchableOpacity 
+                      style={styles.quantityButton} 
+                      onPress={() => updateQuantity(item.id, item.quantity + 1)}
+                    >
+                      <Text style={styles.quantityButtonText}>+</Text>
                     </TouchableOpacity>
                   </View>
-                  <Text style={styles.itemTotal}>R$ {(item.preco * item.quantidade).toFixed(2)}</Text>
+
+                  {/* Botão Remover */}
+                  <TouchableOpacity style={styles.removeButton} onPress={() => removeItem(item.id)}>
+                    <Text style={styles.removeButtonText}>Remover</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
-
-              {/* Botão de Lixeira */}
-              <TouchableOpacity style={styles.deleteButton}>
-                <Ionicons name="trash-outline" size={22} color="#71717a" />
-              </TouchableOpacity>
             </View>
           ))}
-
-          {/* Resumo do Pedido */}
-          <View style={styles.summaryCard}>
-            <Text style={styles.summaryTitle}>Resumo do Pedido</Text>
-            
-            <View style={styles.summaryRow}>
-              <Text style={styles.summaryLabel}>Subtotal</Text>
-              <Text style={styles.summaryValue}>R$ {subtotal.toFixed(2)}</Text>
-            </View>
-            <View style={styles.summaryRow}>
-              <Text style={styles.summaryLabel}>Frete</Text>
-              <Text style={styles.summaryValue}>Calculando...</Text>
-            </View>
-            <View style={styles.summaryRow}>
-              <Text style={styles.summaryLabel}>Desconto</Text>
-              <Text style={[styles.summaryValue, { color: '#4ade80' }]}>R$ 0,00</Text>
-            </View>
-
-            <View style={styles.divider} />
-
-            <View style={styles.summaryRow}>
-              <Text style={styles.totalLabel}>Total</Text>
-              <Text style={styles.totalValue}>R$ {subtotal.toFixed(2)}</Text>
-            </View>
-
-            <TouchableOpacity style={styles.checkoutButton}>
-              <Text style={styles.checkoutButtonText}>FINALIZAR COMPRA</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.continueButton}>
-              <Text style={styles.continueButtonText}>Continuar Comprando</Text>
-            </TouchableOpacity>
-          </View>
-
         </View>
+      ) : (
+        <Text style={styles.emptyText}>Seu carrinho está vazio.</Text>
+      )}
 
-        {/* 4. O FOOTER NO FINAL DO SCROLL (Fora da View de conteúdo) */}
-        <Footer />
-
-      </ScrollView>
-    </View>
+      {/* Seção do Total */}
+      {cart?.items && cart.items.length > 0 && (
+        <View style={styles.totalContainer}>
+          <Text style={styles.totalLabel}>Total:</Text>
+          <Text style={styles.totalPrice}>R$ {total.toFixed(2)}</Text>
+        </View>
+      )}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  // Os estilos continuam exatamente iguais aos seus originais!
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#000',
-  },
   container: {
     flex: 1,
+    backgroundColor: '#0f0a1b',
   },
-  content: {
+  contentContainer: {
     padding: 20,
-    paddingTop: 40,
-    paddingBottom: 60, // Aumentei um pouquinho o paddingBottom para dar um respiro maior antes de encostar no Footer
+    paddingTop: 60,
+    paddingBottom: 40,
   },
-  pageTitle: {
-    color: '#fff',
-    fontSize: 32,
-    fontWeight: '900',
-    marginBottom: 30,
-  },
-  textPurple: {
-    color: '#A855F7',
-  },
-  sectionHeader: {
-    flexDirection: 'row',
+  center: {
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 15,
-    gap: 10,
+    padding: 40,
   },
-  sectionTitle: {
-    color: '#fff',
-    fontSize: 18,
+  title: {
+    fontSize: 32,
     fontWeight: 'bold',
-    textTransform: 'uppercase',
+    color: '#fff',
+    marginBottom: 24,
   },
-  itemCard: {
+  loadingText: {
+    color: '#a1a1aa',
+    marginTop: 12,
+    fontSize: 16,
+  },
+  warningText: {
+    color: '#a1a1aa',
+    fontSize: 18,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  emptyText: {
+    color: '#a1a1aa',
+    fontSize: 16,
+    textAlign: 'center',
+    marginTop: 40,
+  },
+  loginButton: {
+    backgroundColor: '#9333ea',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+  },
+  loginButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  itemsList: {
+    gap: 16,
+  },
+  cartCard: {
     flexDirection: 'row',
-    backgroundColor: '#09090b',
+    backgroundColor: '#161127',
     borderRadius: 12,
     padding: 12,
-    marginBottom: 15,
-    borderWidth: 1,
-    borderColor: '#18181b',
     alignItems: 'center',
   },
-  itemImage: {
-    width: 80,
-    height: 80,
+  productImage: {
+    width: 90,
+    height: 90,
     borderRadius: 8,
-    backgroundColor: '#27272a',
-    marginRight: 12,
+    backgroundColor: '#1f1a2f',
+    resizeMode: 'cover',
   },
-  itemDetails: {
+  infoContainer: {
     flex: 1,
-    justifyContent: 'space-between',
+    marginLeft: 16,
+    justifyContent: 'center',
   },
-  itemName: {
+  productTitle: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 4,
   },
-  itemUnitPrice: {
-    color: '#a1a1aa',
-    fontSize: 12,
-    fontStyle: 'italic',
-    marginBottom: 8,
-  },
-  itemRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingRight: 10,
-  },
-  qtdContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#27272a',
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    gap: 12,
-  },
-  qtdButton: {
-    color: '#A855F7',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  qtdText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  itemTotal: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  deleteButton: {
-    padding: 5,
-  },
-  summaryCard: {
-    marginTop: 30,
-    backgroundColor: '#09090b',
-    borderRadius: 12,
-    padding: 20,
-    borderWidth: 1,
-    borderColor: 'rgba(168, 85, 247, 0.4)',
-  },
-  summaryTitle: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    marginBottom: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#27272a',
-    paddingBottom: 10,
-  },
-  summaryRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  productPrice: {
+    color: '#4ade80',
+    fontSize: 15,
+    fontWeight: '600',
     marginBottom: 12,
   },
-  summaryLabel: {
-    color: '#d4d4d8',
+  actionsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  summaryValue: {
+  quantityControls: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#272237',
+    borderRadius: 6,
+    padding: 4,
+  },
+  quantityButton: {
+    width: 28,
+    height: 28,
+    backgroundColor: '#3b354f',
+    borderRadius: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  quantityButtonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
-  divider: {
-    height: 1,
-    backgroundColor: '#27272a',
-    marginVertical: 15,
-  },
-  totalLabel: {
+  quantityText: {
     color: '#fff',
-    fontSize: 22,
-    fontWeight: '900',
-    textTransform: 'uppercase',
-  },
-  totalValue: {
-    color: '#A855F7',
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  checkoutButton: {
-    backgroundColor: '#9333ea',
-    paddingVertical: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 25,
-  },
-  checkoutButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-  },
-  continueButton: {
-    marginTop: 15,
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  continueButtonText: {
-    color: '#71717a',
     fontSize: 14,
     fontWeight: 'bold',
-    fontStyle: 'italic',
+    marginHorizontal: 12,
+  },
+  removeButton: {
+    backgroundColor: '#dc2626',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+  },
+  removeButtonText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  totalContainer: {
+    marginTop: 32,
+    borderTopWidth: 1,
+    borderTopColor: '#272237',
+    paddingTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  totalLabel: {
+    color: '#a1a1aa',
+    fontSize: 20,
+    fontWeight: '600',
+  },
+  totalPrice: {
+    color: '#fff',
+    fontSize: 26,
+    fontWeight: 'bold',
   },
 });

@@ -8,6 +8,8 @@ type User = {
   email: string;
   avatar?: string;
   role?: string;
+  pronouns?: string;
+  bio?: string;
 } | null;
 
 type UserContextType = {

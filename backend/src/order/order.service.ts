@@ -1,4 +1,8 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { OrderStatus } from '@prisma/client';
 
@@ -14,6 +18,7 @@ export class OrderService {
         items: {
           include: {
             mod: true,
+            product: true,
           },
         },
       },
@@ -26,14 +31,18 @@ export class OrderService {
     // 2. calcular total
     let total = 0;
 
-    const itemsData = cart.items?.map((item) => {
-      const itemTotal = item.quantity * item.mod.price;
+    const itemsData = cart.items.map((item) => {
+      const price = item.mod?.price ?? item.product?.price ?? 0;
+
+      const itemTotal = price * item.quantity;
+
       total += itemTotal;
 
       return {
-        modId: item.modId,
+        modId: item.modId ?? undefined,
+        productId: item.productId ?? undefined,
+        price,
         quantity: item.quantity,
-        price: item.mod.price,
       };
     });
 
@@ -68,6 +77,7 @@ export class OrderService {
         items: {
           include: {
             mod: true,
+            product: true,
           },
         },
       },
@@ -81,6 +91,7 @@ export class OrderService {
         items: {
           include: {
             mod: true,
+            product: true,
           },
         },
       },

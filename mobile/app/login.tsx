@@ -2,48 +2,73 @@ import React, { useState } from 'react';
 import { 
   View, 
   Text, 
-  TextInput, 
+  TextInput,   
   TouchableOpacity, 
   StyleSheet, 
   KeyboardAvoidingView, 
   Platform, 
   ScrollView,
-  ImageBackground // 1. IMPORTANTE: Importe o ImageBackground
+  ImageBackground,
+  Alert // 👈 Importado para mostrar erros na tela se falhar
 } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router'; // 👈 Importado o useRouter para redirecionar
+import { loginMobile } from '../services/api'; // 👈 Importe sua função de login da API (ajuste o caminho se necessário)
 
 export default function LoginPage() {
+  const router = useRouter(); // 👈 Hook para navegação após logar
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(false);
 
-  // 2. IMPORTANTE: Defina o caminho da imagem usando require()
-  // Assumindo que a imagem está em mobile/assets/images/background.jpg
+  // 🔌 ESTADOS DA API: Capturam o que o usuário digita
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false); // Para desabilitar o botão enquanto processa
+
   const backgroundImage = require('../assets/images/background.jpg');
 
+  // 🔥 FUNÇÃO DISPARADA AO CLICAR EM ENTRAR
+  const handleLogin = async () => {
+    if (!email || !password) {
+      alert('Por favor, preencha todos os campos.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      // Envia os dados para o NestJS através do serviço criado
+      const data = await loginMobile({ email, password });
+      
+      console.log("Login com sucesso no Mobile!", data);
+      
+      // Se deu certo, redireciona para a página principal da loja do app
+      router.replace('/'); 
+    } catch (error: any) {
+      console.error(error);
+      alert(error.message || 'Erro ao realizar login. Verifique suas credenciais.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    // 3. A MÁGICA ACONTECE AQUI: ImageBackground envolve tudo
     <ImageBackground 
       source={backgroundImage} 
       style={styles.background}
-      resizeMode="cover" // Faz a imagem cobrir a tela toda sem distorcer
+      resizeMode="cover"
     >
-      {/* 4. OVERLAY: Camada preta translúcida para dar contraste (bg-black/70 da Web) */}
       <View style={styles.overlay}>
-
         <KeyboardAvoidingView 
           style={styles.keyboardContainer} 
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
             
-            {/* Botão Voltar (Aumentei um pouco a margem superior por causa da imagem) */}
             <Link href="/" asChild>
               <TouchableOpacity style={styles.backButton}>
                 <Text style={styles.backText}>← Voltar para a loja</Text>
               </TouchableOpacity>
             </Link>
 
-            {/* Card Principal - O efeito glassmorphism vai ficar lindo com a imagem atrás */}
             <View style={styles.card}>
               <Text style={styles.title}>Entrar</Text>
               <Text style={styles.subtitle}>Acesse sua conta para continuar suas compras.</Text>
@@ -57,6 +82,8 @@ export default function LoginPage() {
                   placeholderTextColor="#a855f7"
                   keyboardType="email-address"
                   autoCapitalize="none"
+                  value={email} // 🔌 Conectado ao estado
+                  onChangeText={setEmail} // 🔌 Atualiza o estado ao digitar
                 />
               </View>
 
@@ -69,6 +96,9 @@ export default function LoginPage() {
                     placeholder="••••••••"
                     placeholderTextColor="#a855f7"
                     secureTextEntry={!showPassword}
+                    autoCapitalize="none"
+                    value={password} // 🔌 Conectado ao estado
+                    onChangeText={setPassword} // 🔌 Atualiza o estado ao digitar
                   />
                   <TouchableOpacity 
                     style={styles.eyeButton} 
@@ -92,8 +122,15 @@ export default function LoginPage() {
               </TouchableOpacity>
 
               {/* Botão Entrar */}
-              <TouchableOpacity style={styles.loginButton} activeOpacity={0.8}>
-                <Text style={styles.loginButtonText}>Entrar</Text>
+              <TouchableOpacity 
+                style={[styles.loginButton, loading && { opacity: 0.7 }]} 
+                activeOpacity={0.8}
+                onPress={handleLogin} // 🔥 Aciona a chamada da API
+                disabled={loading} // Bloqueia cliques repetidos enquanto carrega
+              >
+                <Text style={styles.loginButtonText}>
+                  {loading ? 'Carregando...' : 'Entrar'}
+                </Text>
               </TouchableOpacity>
 
               {/* Divisor "ou" */}
@@ -108,9 +145,9 @@ export default function LoginPage() {
                 <View style={styles.registerContainer}>
                   <Text style={styles.noAccountText}>Não tem conta? </Text>
                   <Link href="/register" asChild>
-                  <TouchableOpacity>
-                    <Text style={styles.registerText}>Cadastre-se</Text>
-                  </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Text style={styles.registerText}>Cadastre-se</Text>
+                    </TouchableOpacity>
                   </Link>
                 </View>
 
@@ -121,7 +158,6 @@ export default function LoginPage() {
 
             </View>
 
-            {/* Footer */}
             <Text style={styles.footerText}>
               Ao entrar, você concorda com nossos Termos de Serviço e Política de Privacidade
             </Text>
@@ -133,53 +169,16 @@ export default function LoginPage() {
   );
 }
 
+// ... Os seus estilos do StyleSheet permanecem idênticos abaixo ...
 const styles = StyleSheet.create({
-  // Estilo para a imagem de fundo ocupar tudo
-  background: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-  },
-  // Estilo para o overlay preto (rgba com 70% de opacidade)
-  overlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-  },
-  keyboardContainer: {
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-  },
-  scrollContent: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    padding: 24,
-  },
-  backButton: {
-    marginBottom: 20,
-    marginTop: 60, // Aumentado para garantir espaço em notched phones
-  },
-  backText: {
-    color: '#c084fc',
-    fontSize: 16,
-    fontWeight: '600', // Dei um leve destaque
-  },
-  card: {
-    // Mantive o fundo translúcido para o efeito glassmorphism
-    backgroundColor: 'rgba(255, 255, 255, 0.06)', 
-    borderRadius: 20,
-    padding: 24,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-    // Adicionei um shadow sutil para descolar do fundo
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.3,
-    shadowRadius: 20,
-    elevation: 10, // Shadow para Android
-  },
-  // ... resto dos estilos permanecem iguais ao anterior ...
+  background: { flex: 1, width: '100%', height: '100%' },
+  overlay: { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.7)' },
+  keyboardContainer: { flex: 1 },
+  container: { flex: 1 },
+  scrollContent: { flexGrow: 1, justifyContent: 'center', padding: 24 },
+  backButton: { marginBottom: 20, marginTop: 60 },
+  backText: { color: '#c084fc', fontSize: 16, fontWeight: '600' },
+  card: { backgroundColor: 'rgba(255, 255, 255, 0.06)', borderRadius: 20, padding: 24, borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.1)', shadowColor: "#000", shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.3, shadowRadius: 20, elevation: 10 },
   title: { color: '#fff', fontSize: 28, fontWeight: 'bold', marginBottom: 8 },
   subtitle: { color: '#e9d5ff', fontSize: 14, marginBottom: 24 },
   inputGroup: { marginBottom: 20 },

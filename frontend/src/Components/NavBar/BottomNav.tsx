@@ -54,14 +54,14 @@ export default function BottomNav() {
           <div className='invisible absolute top-full left-0 z-50 mt-1 w-56 overflow-hidden rounded-lg border border-zinc-800 bg-[#0f0a1b] opacity-0 shadow-2xl transition-all duration-300 group-hover:visible group-hover:opacity-100'>
             <div className='flex flex-col'>
               <Link
-                href='#'
+                href='/roupas'
                 className='flex items-center gap-3 border-b border-zinc-800/50 px-5 py-3 text-zinc-300 transition-colors hover:bg-zinc-800/50 hover:text-purple-500'
               >
                 <IoShirt />
                 Roupas
               </Link>
               <Link
-                href='#'
+                href='/perifericos'
                 className='flex items-center gap-3 border-b border-zinc-800/50 px-5 py-3 text-zinc-300 transition-colors hover:bg-zinc-800/50 hover:text-purple-500'
               >
                 <i className='bi bi-mouse2-fill'></i>

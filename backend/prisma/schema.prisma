@@ -12,7 +12,9 @@ model User {
   name      String
   email     String   @unique
   password  String
-  avatar    String?  // 👈 NOVO CAMPO
+  avatar    String?
+  pronouns  String? @default("")
+  bio       String? @default("")
   createdAt DateTime @default(now())
   role      Role     @default(USER)
 
@@ -29,16 +31,18 @@ model Cart {
 }
 
 model Product {
-  id          Int    @id @default(autoincrement())
+  id          Int             @id @default(autoincrement())
   title       String
-  description String  @default("Sem descrição")
+  description String          @default("Sem descrição")
   price       Float
   stock       Int
   category    ProductCategory
   imageUrl    String
 
-  createdAt   DateTime @default(now())
+  createdAt DateTime @default(now())
 
+  cartItems  CartItem[]
+  orderItems OrderItem[]
 }
 
 enum ProductCategory {
@@ -60,29 +64,32 @@ model Mod {
   category    ModCategory
   imageUrl    String
 
-  createdAt   DateTime    @default(now())
+  createdAt DateTime @default(now())
 
-  cardItems   CartItem[]
-  orderItems  OrderItem[]
-  }
+  cardItems  CartItem[]
+  orderItems OrderItem[]
+}
 
 model CartItem {
-  id        Int @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-  cartId    Int
-  cart    Cart    @relation(fields: [cartId], references: [id])
+  cartId Int
+  cart   Cart @relation(fields: [cartId], references: [id])
 
-  modId     Int
-  mod     Mod @relation(fields: [modId], references: [id])
+  modId Int?
+  mod   Mod? @relation(fields: [modId], references: [id])
 
-  quantity  Int
+  productId Int?
+  product   Product? @relation(fields: [productId], references: [id])
+
+  quantity Int
 }
 
 model Order {
-  id        Int      @id @default(autoincrement())
+  id        Int         @id @default(autoincrement())
   userId    Int
   total     Float
-  createdAt DateTime @default(now())
+  createdAt DateTime    @default(now())
   status    OrderStatus @default(PENDING)
 
   user  User        @relation(fields: [userId], references: [id])
@@ -92,12 +99,14 @@ model Order {
 model OrderItem {
   id        Int   @id @default(autoincrement())
   orderId   Int
-  modId     Int
+  modId     Int?
+  productId Int?
   quantity  Int
   price     Float
 
-  order   Order   @relation(fields: [orderId], references: [id])
-  mod Mod @relation(fields: [modId], references: [id])
+  order   Order    @relation(fields: [orderId], references: [id])
+  mod     Mod?     @relation(fields: [modId], references: [id])
+  product Product? @relation(fields: [productId], references: [id])
 }
 
 enum OrderStatus {

@@ -1,29 +1,24 @@
-import {
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class CartService {
-  constructor(
-    private prisma: PrismaService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async getCart(userId: number) {
-    let cart =
-      await this.prisma.cart.findUnique({
-        where: { userId },
+    let cart = await this.prisma.cart.findUnique({
+      where: { userId },
 
-        include: {
-          items: {
-            include: {
-              mod: true,
-            },
+      include: {
+        items: {
+          include: {
+            mod: true,
+            product: true,
           },
         },
-      });
+      },
+    });
 
     if (!cart) {
       cart = await this.prisma.cart.create({
@@ -35,6 +30,7 @@ export class CartService {
           items: {
             include: {
               mod: true,
+              product: true,
             },
           },
         },
@@ -44,31 +40,18 @@ export class CartService {
     return cart;
   }
 
-  async addItem(
-    userId: number,
-    modId: number,
-  ) {
+  async addItem(userId: number, modId: number) {
     const cart = await this.getCart(userId);
 
-    const existingItem =
-      await this.prisma.cartItem.findFirst({
-        where: {
-          cartId: cart.id,
-          modId,
-        },
-      });
+    const existingItem = await this.prisma.cartItem.findFirst({
+      where: {
+        cartId: cart.id,
+        modId,
+      },
+    });
 
     if (existingItem) {
-      return this.prisma.cartItem.update({
-        where: {
-          id: existingItem.id,
-        },
-
-        data: {
-          quantity:
-            existingItem.quantity + 1,
-        },
-      });
+      return existingItem;
     }
 
     return this.prisma.cartItem.create({
@@ -80,18 +63,46 @@ export class CartService {
     });
   }
 
-  async updateQuantity(
-    itemId: number,
-    quantity: number,
-  ) {
+  async addProduct(userId: number, productId: number) {
+    const cart = await this.getCart(userId);
+
+    const existingItem = await this.prisma.cartItem.findFirst({
+      where: {
+        cartId: cart.id,
+        productId,
+      },
+    });
+
+    if (existingItem) {
+      return this.prisma.cartItem.update({
+        where: {
+          id: existingItem.id,
+        },
+
+        data: {
+          quantity: existingItem.quantity + 1,
+        },
+      });
+    }
+
+    return this.prisma.cartItem.create({
+      data: {
+        cartId: cart.id,
+        productId,
+        quantity: 1,
+      },
+    });
+  }
+
+  async updateQuantity(itemId: number, quantity: number) {
     if (quantity <= 0) {
-      throw new NotFoundException(
-        'Quantidade inválida',
-      );
+      throw new NotFoundException('Quantidade inválida');
     }
 
     return this.prisma.cartItem.update({
-      where: { id: itemId },
+      where: {
+        id: itemId,
+      },
 
       data: {
         quantity,
