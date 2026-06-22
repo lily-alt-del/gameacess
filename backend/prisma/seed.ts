@@ -40,7 +40,7 @@ async function main() {
           'Opções de sensibilidade e mira assistida para melhor controle.',
         price: 16.99,
         imageUrl:
-          'https://mfiles.alphacoders.com/101/thumb-1920-1011359.jpeg',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782142445/ultrakill_nxyfil.png',
         category: ModCategory.DESCUBRA,
       },
 
@@ -50,7 +50,7 @@ async function main() {
           'Legendas aprimoradas e indicadores visuais para sons importantes.',
         price: 17.02,
         imageUrl:
-          'https://upload.wikimedia.org/wikipedia/pt/f/f9/Portal2cover.jpg',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782142686/portal_2_rocawu.png',
         category: ModCategory.DESCUBRA,
       },
 
@@ -60,7 +60,7 @@ async function main() {
           'Textos mais claros e ritmo mais tranquilo para jogar sem pressa.',
         price: 5.44,
         imageUrl:
-          'https://m.media-amazon.com/images/I/81KKBjilaGL.jpg',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782144643/animal_crossing_tupirp.png',
         category: ModCategory.DESCUBRA,
       },
 
@@ -70,7 +70,7 @@ async function main() {
           'Controles simplificados e feedback visual mais evidente.',
         price: 3.28,
         imageUrl:
-          'https://img.poki-cdn.com/cdn-cgi/image/q=78,scq=50,width=1200,height=1200,fit=cover,f=png/231cb237ab22763a61c2ca0eac6a3760/subway-surfers-logo.png',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782144750/subway_surf_hupvjv.png',
         category: ModCategory.DESCUBRA,
       },
 
@@ -80,7 +80,7 @@ async function main() {
           'Sinais visuais substituem sons importantes do jogo.',
         price: 4.3,
         imageUrl:
-          'https://m.media-amazon.com/images/I/91zzKKBFQVL._AC_UF1000,1000_QL80_.jpg',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782144968/subway_surf_dbxrhr.png',
         category: ModCategory.DESCUBRA,
       },
 
@@ -90,7 +90,7 @@ async function main() {
           'Ajustes de toque e precisão para facilitar os lançamentos.',
         price: 5.3,
         imageUrl:
-          'https://play-lh.googleusercontent.com/INjAX3rST_6h8j8FDaB9LMlgv-dCMd-g1aCKE7OIuTG9UqB9X95Ow86xPdC1U_onhQ',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782145167/angry_birds_u0vvhx.png',
         category: ModCategory.DESCUBRA,
       },
 
@@ -102,7 +102,7 @@ async function main() {
           'Automação de cliques e seleção de itens para jogar usando apenas um botão.',
         price: 9.9,
         imageUrl:
-          'https://cdn1.epicgames.com/spt-assets/6091b3f3943e4a7aa25fcac13de15cd1/vampire-survivors-7nq1h.jpg',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782145427/vampire_survivors_ibgeme.png',
         category: ModCategory.DESCONTO_PRINCIPAL,
       },
 
@@ -112,7 +112,7 @@ async function main() {
           'Leitor de tela completo que narra menus e diálogos.',
         price: 39.4,
         imageUrl:
-          'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/413150/capsule_616x353.jpg?t=1754692865',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782145442/Stardew_poe2gd.png',
         category: ModCategory.DESCONTO_PRINCIPAL,
       },
 
@@ -122,7 +122,7 @@ async function main() {
           'Mira automática e assistência de construção.',
         price: 19.8,
         imageUrl:
-          'https://upload.wikimedia.org/wikipedia/en/thumb/1/1a/Terraria_Steam_artwork.jpg/250px-Terraria_Steam_artwork.jpg',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782145528/terraria_yppeap.png',
         category: ModCategory.DESCONTO_PRINCIPAL,
       },
 
@@ -132,7 +132,7 @@ async function main() {
           'Interface com fontes ampliadas e alto contraste.',
         price: 5.0,
         imageUrl:
-          'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/246620/4c67f0dc09d833b843cf5c3834d95bef246ccd49/header.jpg?t=1776850604',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782145599/plague_inc_fzn8xa.png',
         category: ModCategory.DESCONTO_PRINCIPAL,
       },
 
@@ -142,7 +142,7 @@ async function main() {
           'Indicadores visuais que apontam a direção de tiros e alarmes.',
         price: 4.99,
         imageUrl:
-          'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/223470/header.jpg?t=1726251082',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782145755/Postal_2_jy4pif.png',
         category: ModCategory.DESCONTO_PRINCIPAL,
       },
 
@@ -152,7 +152,7 @@ async function main() {
           'Permite pausar ou desacelerar o combate em tempo real.',
         price: 7.5,
         imageUrl:
-          'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/228200/header.jpg?t=1777996337',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782145838/heros_rxpcx2.png',
         category: ModCategory.DESCONTO_PRINCIPAL,
       },
 
@@ -201,29 +201,29 @@ async function main() {
         stock: 20,
         category: 'PERIFERICOS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782136790/mouse_ergonomico_uznwgn.png',
       },
 
       {
-        title: 'Mouse Adaptado para Braço',
+        title: 'Mousepad Adaptado para Braço',
         description:
           'Mouse adaptado para usuários com mobilidade reduzida nos dedos e mãos.',
         price: 99.9,
         stock: 15,
         category: 'PERIFERICOS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782137401/mouse_bra%C3%A7o_bs52dg.png',
       },
 
       {
-        title: 'Kit Mouses Adaptados e Joystick',
+        title: 'Joystick para computador',
         description:
-          'Kit completo com mouse adaptado e joystick para maior acessibilidade.',
+          'Joystick para maior acessibilidade de pessoas com baixa mobilidade nas mãos.',
         price: 179.9,
         stock: 10,
         category: 'PERIFERICOS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782137902/joystick_1_pxzj88.png',
       },
 
       {
@@ -234,7 +234,7 @@ async function main() {
         stock: 12,
         category: 'PERIFERICOS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782138307/mouse_de_pe_bcuzaq.webp',
       },
 
       {
@@ -245,7 +245,7 @@ async function main() {
         stock: 18,
         category: 'PERIFERICOS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782138475/ergonomico_kgnhqf.png',
       },
 
       {
@@ -256,7 +256,7 @@ async function main() {
         stock: 15,
         category: 'PERIFERICOS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782138604/ergonomico_gamer_1_qg057e.png',
       },
 
       {
@@ -267,7 +267,7 @@ async function main() {
         stock: 8,
         category: 'PERIFERICOS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782138753/switch_adaptado_or8dsk.png',
       },
 
       {
@@ -278,7 +278,7 @@ async function main() {
         stock: 8,
         category: 'PERIFERICOS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782139047/series_x_adaptado_fcrkfv.png',
       },
 
       {
@@ -289,29 +289,29 @@ async function main() {
         stock: 8,
         category: 'PERIFERICOS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782139151/ps5_adaptado_huxhss.png',
       },
 
       {
-        title: 'Headset Gamer Adaptado',
+        title: 'Headset Adaptado',
         description:
-          'Headset gamer adaptado para maior conforto e acessibilidade.',
+          'Headset adaptado com cancelamento de ruídos para maior conforto e acessibilidade.',
         price: 129.9,
         stock: 12,
         category: 'PERIFERICOS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782139716/headset_adaptado_1_xmpswk.png',
       },
 
       {
         title: 'Headset Gamer com Microfone Adaptado',
         description:
-          'Headset gamer com microfone integrado e recursos de acessibilidade.',
+          'Headset gamer com microfone integrado e cancelamento de ruídos.',
         price: 149.9,
         stock: 12,
         category: 'PERIFERICOS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782139445/headset_adaptado_aljccu.png',
       },
 
       {
@@ -322,7 +322,7 @@ async function main() {
         stock: 30,
         category: 'ROUPAS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782139897/camisa_vm53bv.png',
       },
 
       {
@@ -333,7 +333,7 @@ async function main() {
         stock: 25,
         category: 'ROUPAS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782140208/babylook_jmwte5.png',
       },
 
       {
@@ -344,7 +344,7 @@ async function main() {
         stock: 25,
         category: 'ROUPAS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782140242/regata_zucl89.png',
       },
 
       {
@@ -355,7 +355,7 @@ async function main() {
         stock: 20,
         category: 'ROUPAS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782140277/capuz_aqqdi8.png',
       },
 
       {
@@ -366,7 +366,7 @@ async function main() {
         stock: 20,
         category: 'ROUPAS',
         imageUrl:
-          'https://down-br.img.susercontent.com/file/c49135d660d5ffb0c936fcc1c50694d2',
+          'https://res.cloudinary.com/drhmcuxiy/image/upload/v1782140303/careca_yjet4z.png',
       },
     ],
   });

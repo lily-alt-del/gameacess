@@ -83,28 +83,14 @@ export default function Header() {
               <Link href={"/produtos/camisetas" as any} asChild>
                 <TouchableOpacity style={styles.subMenuItem}>
                   <Ionicons name="shirt-outline" size={18} color="#A855F7" />
-                  <Text style={styles.subMenuText}>Camisetas</Text>
+                  <Text style={styles.subMenuText}>Roupas</Text>
                 </TouchableOpacity>
               </Link>
               
-              <Link href={"/produtos/moletons" as any} asChild>
-                <TouchableOpacity style={styles.subMenuItem}>
-                  <MaterialCommunityIcons name="layers-outline" size={20} color="#A855F7" />
-                  <Text style={styles.subMenuText}>Moletons</Text>
-                </TouchableOpacity>
-              </Link>
-
               <Link href={"/produtos/perifericos" as any} asChild>
                 <TouchableOpacity style={styles.subMenuItem}>
                   <Ionicons name="game-controller-outline" size={18} color="#A855F7" />
                   <Text style={styles.subMenuText}>Periféricos</Text>
-                </TouchableOpacity>
-              </Link>
-
-              <Link href={"/produtos/colecionaveis" as any} asChild>
-                <TouchableOpacity style={styles.subMenuItem}>
-                  <Ionicons name="cube-outline" size={18} color="#A855F7" />
-                  <Text style={styles.subMenuText}>Colecionáveis</Text>
                 </TouchableOpacity>
               </Link>
             </View>

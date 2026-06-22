@@ -281,20 +281,14 @@ Funcionalidades planejadas:
 
 Desenvolvido por:
 
-Lily dos Santos
-GitHub: https://github.com/lily-alt-del
+Lily dos Santos: https://github.com/lily-alt-del
 
-Árion Pessin:
-GitHub: https://github.com/ARiN010
+Árion Pessin: https://github.com/ARiN010
 
-Gabriel Passari:
-GitHub: https://github.com/Gabrielpassari
+Gabriel Passari: https://github.com/Gabrielpassari
 
-Maria Eduarda:
-GitHub: https://github.com/Dudao6969
+Maria Eduarda:https://github.com/Dudao6969
 
-Sabrina Kaori:
-GitHub: https://github.com/kaorigalarza
+Sabrina Kaori: https://github.com/kaorigalarza
 
-Henrique Joshua:
-GitHub: https://github.com/henrique279
+Henrique Joshua: https://github.com/henrique279

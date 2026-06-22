@@ -9,20 +9,20 @@ export default function ProductDetailsPage() {
   const { id } = useLocalSearchParams(); // 🏷️ Captura dinamicamente o ID do produto clicado
   const router = useRouter();
   
-  const [product, setProduct] = useState<any>(null);
+  const [mod, setMods] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   // 1. Busca os detalhes do produto específico direto do NestJS
   useEffect(() => {
     if (id) {
-      apiFetchMobile(`/produtos/${id}`) // Confirme se sua rota no NestJS é /produtos/:id ou /product/:id
-        .then(data => setProduct(data))
+      apiFetchMobile(`/mods/${id}`) // Confirme se sua rota no NestJS é /produtos/:id ou /product/:id
+        .then(data => setMods(data))
         .catch(error => {
-          console.error("Erro ao buscar detalhes do produto:", error);
+          console.error("Erro ao buscar detalhes do mod:", error);
           Toast.show({
             type: 'error',
             text1: 'Erro',
-            text2: 'Não foi possível carregar os detalhes do produto.',
+            text2: 'Não foi possível carregar os detalhes do mod.',
           });
         })
         .finally(() => setLoading(false));
@@ -36,8 +36,7 @@ export default function ProductDetailsPage() {
       await apiFetchMobile('/cart', {
         method: 'POST',
         body: JSON.stringify({
-          productId: product.id, // Envia o ID numérico esperado pelo Prisma
-          quantity: 1
+          modId: mod.id // Envia o ID numérico esperado pelo Prisma
         })
       });
 
@@ -45,7 +44,7 @@ export default function ProductDetailsPage() {
       Toast.show({
         type: 'success',
         text1: 'Adicionado! 🛒',
-        text2: `${product.nome} foi para o seu carrinho.`,
+        text2: `${mod.title} foi para o seu carrinho.`,
         position: 'top',
         visibilityTime: 2500,
       });
@@ -67,7 +66,7 @@ export default function ProductDetailsPage() {
     );
   }
 
-  if (!product) {
+  if (!mod) {
     return (
       <View style={[styles.safeContainer, styles.center]}>
         <Text style={styles.errorText}>Produto não encontrado.</Text>
@@ -76,7 +75,7 @@ export default function ProductDetailsPage() {
   }
 
   // Tratamento da imagem: se vier uma URL string da API usa uri, se for asset local resolve nativamente
-  const imageSource = typeof product.imagem === 'string' ? { uri: product.imagem } : product.imagem;
+  const imageSource = typeof mod.imageUrl === 'string' ? { uri: mod.imageUrl } : mod.imageUrl;
 
   return (
     <View style={styles.safeContainer}>
@@ -89,17 +88,17 @@ export default function ProductDetailsPage() {
 
         {/* Container da Imagem */}
         <View style={styles.imageContainer}>
-          <Image source={imageSource} style={styles.image} />
+          <Image source={ mod.imageUrl } style={styles.image} />
         </View>
         
         {/* Informações */}
-        <Text style={styles.productName}>{product.nome}</Text>
+        <Text style={styles.productName}>{mod.title}</Text>
         <Text style={styles.productPrice}>
-          {typeof product.preco === 'number' ? `R$ ${product.preco.toFixed(2)}` : product.preco}
+          {typeof mod.price === 'number' ? `R$ ${mod.price.toFixed(2)}` : mod.price}
         </Text>
         
         <Text style={styles.productDescription}>
-          {product.descricao || 'Este incrível item está disponível no estoque da AccessGame prono para entrega.'}
+          {mod.description || 'Este incrível item está disponível no estoque da AccessGame prono para entrega.'}
         </Text>
 
         {/* Botão de Compra */}
@@ -143,9 +142,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   imageContainer: {
-    backgroundColor: '#fff',
     borderRadius: 16,
     width: '100%',
+    height: 660 ,
     aspectRatio: 1.2,
     alignItems: 'center',
     justifyContent: 'center',
@@ -155,7 +154,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'contain',
+    borderRadius: 20
   },
   productName: {
     color: '#fff',

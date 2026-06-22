@@ -28,9 +28,6 @@ export default function SobreNos() {
           {/* SEÇÃO 1: JOGAR É PARA TODOS */}
           <View style={styles.section}>
             {/* Retângulo de Vídeo/Imagem */}
-            <View style={styles.videoPlaceholder}>
-              <Text style={{ color: '#555' }}>Placeholder Vídeo / Imagem</Text>
-            </View>
 
             <Text style={styles.mainTitle}>
               JOGAR É PARA TODOS.{"\n"}
